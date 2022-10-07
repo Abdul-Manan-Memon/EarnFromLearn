@@ -1,0 +1,783 @@
+{
+    "modelName": "EarnFromLearn",
+    "collections": [
+        {
+            "collectionName": "Student",
+            "type": "object",
+            "properties": [
+                {
+                    "name": "Student_ID",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "07d4bfbb-a6f3-4165-9b78-2b29819b79eb",
+                    "primaryKey": true,
+                    "minLength": 8,
+                    "maxLength": 8,
+                    "required": true,
+                    "error": {}
+                },
+                {
+                    "name": "Student_Name",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "6b3e0be5-5f13-4509-b466-690acf58ac1d",
+                    "required": true,
+                    "error": {}
+                },
+                {
+                    "name": "Qualification",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "0f86f85c-f0a7-4ac2-8dd5-36a0349cf594",
+                    "required": true,
+                    "error": {
+                        "enum": false,
+                        "enums": [],
+                        "exampleItems": []
+                    }
+                },
+                {
+                    "name": "DateOfBirth",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "date",
+                    "primaryKey": false,
+                    "GUID": "b0f767d7-fb2a-4dcb-9d41-5b88009035bb",
+                    "required": true,
+                    "error": {}
+                },
+                {
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "cbc74eba-0530-41b0-9b5c-c5d7f009b113",
+                    "foreignCollection": "0c790199-fc53-415a-b198-cd677319a431",
+                    "name": "UserID",
+                    "foreignField": [
+                        "0c790199-fc53-415a-b198-cd677319a431",
+                        "e18b67c3-2fcc-43ee-9488-1bb6cad3af33"
+                    ],
+                    "relationshipType": "Foreign Key",
+                    "parentRelationship": "874e187e-745c-4ba7-bc8f-f7a5ee4a8803",
+                    "required": true,
+                    "error": {}
+                }
+            ],
+            "definitions": {
+                "type": "definitions",
+                "properties": [],
+                "GUID": "88230dba-1bae-485e-b1b2-04d7d325e0b4"
+            },
+            "isActivated": true,
+            "additionalProperties": false,
+            "validationLevel": "Off",
+            "validationAction": "Warn",
+            "storageEngineName": "WiredTiger",
+            "collectionUsers": [],
+            "indexes": [],
+            "collation": {},
+            "sharding": {
+                "unique": true,
+                "collation": "null"
+            },
+            "GUID": "6747436a-a84f-4f62-804a-f8c4d2bbf1d7",
+            "bucketId": "8daa243e-0e15-4a13-b129-a0ce1b4d0075",
+            "hackoladeMeta": {
+                "namingConvention": ""
+            }
+        },
+        {
+            "collectionName": "Instructor",
+            "type": "object",
+            "properties": [
+                {
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "8ee236b2-0ca5-4993-b08b-1d63f0e4905e",
+                    "name": "Instructor_ID",
+                    "required": true,
+                    "primaryKey": true,
+                    "error": {}
+                },
+                {
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "95dc6a77-9b47-4f35-9de2-85005fab2616",
+                    "name": "Instructor_Name",
+                    "encrypt": false,
+                    "encryptionOptions": {
+                        "GUID": "c298c767-2071-4903-88cb-5a7f5689a348"
+                    },
+                    "required": true,
+                    "error": {}
+                },
+                {
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "ffa135ac-22e8-4590-9271-7a79447dee32",
+                    "name": "Qualification",
+                    "required": true,
+                    "error": {}
+                },
+                {
+                    "name": "Experience",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "numeric",
+                    "GUID": "6fa5255e-b1bf-452f-833f-919d9faacf9e",
+                    "error": {}
+                },
+                {
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "4842438d-13f6-41a7-b395-fe7e8f8bc929",
+                    "name": "AreaOfExpertise",
+                    "required": true,
+                    "error": {}
+                },
+                {
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "ab5d236b-21e7-4175-8433-d10b5c86a688",
+                    "foreignCollection": "0c790199-fc53-415a-b198-cd677319a431",
+                    "foreignField": [
+                        "0c790199-fc53-415a-b198-cd677319a431",
+                        "e18b67c3-2fcc-43ee-9488-1bb6cad3af33"
+                    ],
+                    "relationshipType": "Foreign Key",
+                    "parentRelationship": "a1e72f94-e8ae-40e5-ba97-d36b7e6c17eb",
+                    "name": "UserID",
+                    "error": {}
+                }
+            ],
+            "definitions": {
+                "type": "definitions",
+                "properties": [],
+                "GUID": "4e5981d3-bc44-41fe-8f91-14eeb8461a1b"
+            },
+            "isActivated": true,
+            "additionalProperties": false,
+            "validationLevel": "Off",
+            "validationAction": "Warn",
+            "storageEngineName": "WiredTiger",
+            "collectionUsers": [],
+            "indexes": [],
+            "collation": {},
+            "sharding": {
+                "unique": true,
+                "collation": "null"
+            },
+            "GUID": "409cf8c2-97c7-424c-b33b-39e5da3c08f5",
+            "bucketId": "8daa243e-0e15-4a13-b129-a0ce1b4d0075"
+        },
+        {
+            "collectionName": "Recruiter",
+            "type": "object",
+            "properties": [
+                {
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "c56223c6-f648-4fcb-99c0-0dab7ebd5251",
+                    "name": "Recruiter_ID",
+                    "required": true,
+                    "primaryKey": true,
+                    "error": {}
+                },
+                {
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "41a1d724-3f9b-46c5-9019-0b84e07d430c",
+                    "name": "Recruiter_Name",
+                    "required": true,
+                    "error": {}
+                },
+                {
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "57a134ef-93f0-45cc-9144-9f8559def846",
+                    "name": "Company_Name",
+                    "error": {}
+                },
+                {
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "80bca2b7-9f5e-4f6f-8178-1372b5fcd493",
+                    "name": "UserID",
+                    "foreignCollection": "0c790199-fc53-415a-b198-cd677319a431",
+                    "foreignField": [
+                        "0c790199-fc53-415a-b198-cd677319a431",
+                        "e18b67c3-2fcc-43ee-9488-1bb6cad3af33"
+                    ],
+                    "relationshipType": "Foreign Key",
+                    "parentRelationship": "ce0e7424-a992-4806-a9a5-f97e96a1385c",
+                    "error": {}
+                }
+            ],
+            "definitions": {
+                "type": "definitions",
+                "properties": [],
+                "GUID": "3df2fa60-9548-423e-ab09-5d36e6bfae7e"
+            },
+            "isActivated": true,
+            "additionalProperties": false,
+            "validationLevel": "Off",
+            "validationAction": "Warn",
+            "storageEngineName": "WiredTiger",
+            "collectionUsers": [],
+            "indexes": [],
+            "collation": {},
+            "sharding": {
+                "unique": true,
+                "collation": "null"
+            },
+            "GUID": "32b68848-e699-4c7b-a6f6-70c3cd46205e",
+            "bucketId": "8daa243e-0e15-4a13-b129-a0ce1b4d0075"
+        },
+        {
+            "collectionName": "User",
+            "type": "object",
+            "properties": [
+                {
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "e18b67c3-2fcc-43ee-9488-1bb6cad3af33",
+                    "name": "UserID",
+                    "primaryKey": true,
+                    "required": true,
+                    "error": {},
+                    "childRelationships": [
+                        "874e187e-745c-4ba7-bc8f-f7a5ee4a8803",
+                        "a1e72f94-e8ae-40e5-ba97-d36b7e6c17eb",
+                        "ce0e7424-a992-4806-a9a5-f97e96a1385c"
+                    ]
+                },
+                {
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "e8603417-aecc-4482-947e-c761e26a0773",
+                    "name": "Username",
+                    "required": true,
+                    "error": {}
+                },
+                {
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "92ed34ab-3ec6-465f-a7e9-28c2e7a6cf3d",
+                    "name": "Password",
+                    "required": true,
+                    "error": {}
+                }
+            ],
+            "definitions": {
+                "type": "definitions",
+                "properties": [],
+                "GUID": "6766416c-bcfb-4d38-8df9-1568e78316ba"
+            },
+            "isActivated": true,
+            "additionalProperties": false,
+            "validationLevel": "Off",
+            "validationAction": "Warn",
+            "storageEngineName": "WiredTiger",
+            "collectionUsers": [],
+            "indexes": [],
+            "collation": {},
+            "sharding": {
+                "unique": true,
+                "collation": "null"
+            },
+            "GUID": "0c790199-fc53-415a-b198-cd677319a431",
+            "bucketId": "8daa243e-0e15-4a13-b129-a0ce1b4d0075"
+        },
+        {
+            "collectionName": "Course",
+            "type": "object",
+            "properties": [],
+            "definitions": {
+                "type": "definitions",
+                "properties": [],
+                "GUID": "6f28f7ec-89b5-4d76-ae06-5341b5a39ad0"
+            },
+            "isActivated": true,
+            "additionalProperties": false,
+            "validationLevel": "Off",
+            "validationAction": "Warn",
+            "storageEngineName": "WiredTiger",
+            "collectionUsers": [],
+            "indexes": [],
+            "collation": {},
+            "sharding": {
+                "unique": true,
+                "collation": "null"
+            },
+            "GUID": "17192376-4bcb-42ae-9b05-aef76be73026",
+            "bucketId": "8daa243e-0e15-4a13-b129-a0ce1b4d0075"
+        },
+        {
+            "collectionName": "Review_Course",
+            "type": "object",
+            "properties": [],
+            "definitions": {
+                "type": "definitions",
+                "properties": [],
+                "GUID": "616a91a5-1849-409e-a223-6b6f95032b66"
+            },
+            "isActivated": true,
+            "additionalProperties": false,
+            "validationLevel": "Off",
+            "validationAction": "Warn",
+            "storageEngineName": "WiredTiger",
+            "collectionUsers": [],
+            "indexes": [],
+            "collation": {},
+            "sharding": {
+                "unique": true,
+                "collation": "null"
+            },
+            "GUID": "75aa8fa9-8433-4acf-be0f-a521e1b45b23",
+            "bucketId": "8daa243e-0e15-4a13-b129-a0ce1b4d0075"
+        },
+        {
+            "collectionName": "LeaderBoard",
+            "type": "object",
+            "properties": [],
+            "definitions": {
+                "type": "definitions",
+                "properties": [],
+                "GUID": "3adc0f26-acbd-4140-85cf-d354029d08ef"
+            },
+            "isActivated": true,
+            "additionalProperties": false,
+            "validationLevel": "Off",
+            "validationAction": "Warn",
+            "storageEngineName": "WiredTiger",
+            "collectionUsers": [],
+            "indexes": [],
+            "collation": {},
+            "sharding": {
+                "unique": true,
+                "collation": "null"
+            },
+            "GUID": "73739884-669a-49e3-9b62-6084117deb49",
+            "bucketId": "8daa243e-0e15-4a13-b129-a0ce1b4d0075"
+        },
+        {
+            "collectionName": "JOB",
+            "type": "object",
+            "properties": [],
+            "definitions": {
+                "type": "definitions",
+                "properties": [],
+                "GUID": "92c90ea0-7623-45e3-9919-92ff8748434b"
+            },
+            "isActivated": true,
+            "additionalProperties": false,
+            "validationLevel": "Off",
+            "validationAction": "Warn",
+            "storageEngineName": "WiredTiger",
+            "collectionUsers": [],
+            "indexes": [],
+            "collation": {},
+            "sharding": {
+                "unique": true,
+                "collation": "null"
+            },
+            "GUID": "2634324c-a225-4233-8718-24b44065a699",
+            "bucketId": "8daa243e-0e15-4a13-b129-a0ce1b4d0075"
+        },
+        {
+            "collectionName": "Payments",
+            "type": "object",
+            "properties": [],
+            "definitions": {
+                "type": "definitions",
+                "properties": [],
+                "GUID": "83c5ad22-988a-4969-9de9-7c23a814b41e"
+            },
+            "isActivated": true,
+            "additionalProperties": false,
+            "validationLevel": "Off",
+            "validationAction": "Warn",
+            "storageEngineName": "WiredTiger",
+            "collectionUsers": [],
+            "indexes": [],
+            "collation": {},
+            "sharding": {
+                "unique": true,
+                "collation": "null"
+            },
+            "GUID": "10c0d97f-00a3-4f9e-8888-b0fd81c933bf",
+            "bucketId": "8daa243e-0e15-4a13-b129-a0ce1b4d0075"
+        },
+        {
+            "collectionName": "Skills Offered",
+            "type": "object",
+            "properties": [
+                {
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "dd230109-97d5-411c-8292-69bbf592d8a6",
+                    "name": "Skill_ID",
+                    "required": true,
+                    "primaryKey": true,
+                    "error": {}
+                },
+                {
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "3ccdd359-7268-4c6a-95c8-ebf99a55b096",
+                    "name": "Skill_Name",
+                    "required": true,
+                    "error": {}
+                },
+                {
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "ba997c99-72fb-40ea-b68c-089d4662651e",
+                    "name": "NumberOfCourses",
+                    "required": true,
+                    "error": {}
+                },
+                {
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "5bed6ceb-4541-4deb-98d9-ef48f7bbe828",
+                    "name": "NumberOfTags",
+                    "error": {}
+                }
+            ],
+            "definitions": {
+                "type": "definitions",
+                "properties": [],
+                "GUID": "ad6e8246-44af-4d09-852e-44a4263bdd33"
+            },
+            "isActivated": true,
+            "additionalProperties": false,
+            "validationLevel": "Off",
+            "validationAction": "Warn",
+            "storageEngineName": "WiredTiger",
+            "collectionUsers": [],
+            "indexes": [],
+            "collation": {},
+            "sharding": {
+                "unique": true,
+                "collation": "null"
+            },
+            "GUID": "11989bed-e274-4e42-a9ac-842c90b9a6d6",
+            "bucketId": "8daa243e-0e15-4a13-b129-a0ce1b4d0075"
+        }
+    ],
+    "buckets": [
+        {
+            "name": "EarnFromLearn",
+            "type": "bucket",
+            "collectionIds": [
+                "6747436a-a84f-4f62-804a-f8c4d2bbf1d7",
+                "409cf8c2-97c7-424c-b33b-39e5da3c08f5",
+                "32b68848-e699-4c7b-a6f6-70c3cd46205e",
+                "0c790199-fc53-415a-b198-cd677319a431",
+                "17192376-4bcb-42ae-9b05-aef76be73026",
+                "75aa8fa9-8433-4acf-be0f-a521e1b45b23",
+                "73739884-669a-49e3-9b62-6084117deb49",
+                "2634324c-a225-4233-8718-24b44065a699",
+                "10c0d97f-00a3-4f9e-8888-b0fd81c933bf",
+                "11989bed-e274-4e42-a9ac-842c90b9a6d6"
+            ],
+            "backgroundColor": {
+                "r": 3,
+                "g": 169,
+                "b": 245,
+                "a": 1
+            },
+            "show": true,
+            "isActivated": true,
+            "GUID": "8daa243e-0e15-4a13-b129-a0ce1b4d0075",
+            "enableSharding": false,
+            "fontStyle": [
+                "bold",
+                "italic"
+            ]
+        }
+    ],
+    "views": [],
+    "relationships": [
+        {
+            "name": "fk Student.UserID to User.UserID",
+            "relationshipType": "Foreign Key",
+            "parentField": [
+                [
+                    "0c790199-fc53-415a-b198-cd677319a431",
+                    "e18b67c3-2fcc-43ee-9488-1bb6cad3af33"
+                ]
+            ],
+            "parentCardinality": "1",
+            "childField": [
+                [
+                    "6747436a-a84f-4f62-804a-f8c4d2bbf1d7",
+                    "cbc74eba-0530-41b0-9b5c-c5d7f009b113"
+                ]
+            ],
+            "childCardinality": "1",
+            "GUID": "874e187e-745c-4ba7-bc8f-f7a5ee4a8803",
+            "parentCollection": "0c790199-fc53-415a-b198-cd677319a431",
+            "childCollection": "6747436a-a84f-4f62-804a-f8c4d2bbf1d7"
+        },
+        {
+            "name": "fk Instructor.New Field to User.UserID",
+            "relationshipType": "Foreign Key",
+            "parentField": [
+                [
+                    "0c790199-fc53-415a-b198-cd677319a431",
+                    "e18b67c3-2fcc-43ee-9488-1bb6cad3af33"
+                ]
+            ],
+            "parentCardinality": "1",
+            "childField": [
+                [
+                    "409cf8c2-97c7-424c-b33b-39e5da3c08f5",
+                    "ab5d236b-21e7-4175-8433-d10b5c86a688"
+                ]
+            ],
+            "childCardinality": "1",
+            "GUID": "a1e72f94-e8ae-40e5-ba97-d36b7e6c17eb",
+            "parentCollection": "0c790199-fc53-415a-b198-cd677319a431",
+            "childCollection": "409cf8c2-97c7-424c-b33b-39e5da3c08f5"
+        },
+        {
+            "name": "fk Recruiter.UserID to User.UserID",
+            "relationshipType": "Foreign Key",
+            "parentField": [
+                [
+                    "0c790199-fc53-415a-b198-cd677319a431",
+                    "e18b67c3-2fcc-43ee-9488-1bb6cad3af33"
+                ]
+            ],
+            "parentCardinality": "1",
+            "childField": [
+                [
+                    "32b68848-e699-4c7b-a6f6-70c3cd46205e",
+                    "80bca2b7-9f5e-4f6f-8178-1372b5fcd493"
+                ]
+            ],
+            "childCardinality": "1",
+            "GUID": "ce0e7424-a992-4806-a9a5-f97e96a1385c",
+            "parentCollection": "0c790199-fc53-415a-b198-cd677319a431",
+            "childCollection": "32b68848-e699-4c7b-a6f6-70c3cd46205e"
+        }
+    ],
+    "users": [],
+    "diagramViews": [],
+    "idToNameHashTable": {
+        "8daa243e-0e15-4a13-b129-a0ce1b4d0075": "EarnFromLearn",
+        "6747436a-a84f-4f62-804a-f8c4d2bbf1d7": "Student",
+        "409cf8c2-97c7-424c-b33b-39e5da3c08f5": "Instructor",
+        "32b68848-e699-4c7b-a6f6-70c3cd46205e": "Recruiter",
+        "0c790199-fc53-415a-b198-cd677319a431": "User",
+        "17192376-4bcb-42ae-9b05-aef76be73026": "Course",
+        "75aa8fa9-8433-4acf-be0f-a521e1b45b23": "Review_Course",
+        "73739884-669a-49e3-9b62-6084117deb49": "LeaderBoard",
+        "07d4bfbb-a6f3-4165-9b78-2b29819b79eb": "Student_ID",
+        "6b3e0be5-5f13-4509-b466-690acf58ac1d": "Student_Name",
+        "0f86f85c-f0a7-4ac2-8dd5-36a0349cf594": "Qualification",
+        "b0f767d7-fb2a-4dcb-9d41-5b88009035bb": "DateOfBirth",
+        "8ee236b2-0ca5-4993-b08b-1d63f0e4905e": "Instructor_ID",
+        "95dc6a77-9b47-4f35-9de2-85005fab2616": "Instructor_Name",
+        "ffa135ac-22e8-4590-9271-7a79447dee32": "Qualification",
+        "6fa5255e-b1bf-452f-833f-919d9faacf9e": "Experience",
+        "4842438d-13f6-41a7-b395-fe7e8f8bc929": "AreaOfExpertise",
+        "c56223c6-f648-4fcb-99c0-0dab7ebd5251": "Recruiter_ID",
+        "41a1d724-3f9b-46c5-9019-0b84e07d430c": "Recruiter_Name",
+        "57a134ef-93f0-45cc-9144-9f8559def846": "Company_Name",
+        "e18b67c3-2fcc-43ee-9488-1bb6cad3af33": "UserID",
+        "e8603417-aecc-4482-947e-c761e26a0773": "Username",
+        "92ed34ab-3ec6-465f-a7e9-28c2e7a6cf3d": "Password",
+        "cbc74eba-0530-41b0-9b5c-c5d7f009b113": "UserID",
+        "874e187e-745c-4ba7-bc8f-f7a5ee4a8803": "fk Student.UserID to User.UserID",
+        "ab5d236b-21e7-4175-8433-d10b5c86a688": "UserID",
+        "a1e72f94-e8ae-40e5-ba97-d36b7e6c17eb": "fk Instructor.New Field to User.UserID",
+        "80bca2b7-9f5e-4f6f-8178-1372b5fcd493": "UserID",
+        "ce0e7424-a992-4806-a9a5-f97e96a1385c": "fk Recruiter.UserID to User.UserID",
+        "2634324c-a225-4233-8718-24b44065a699": "JOB",
+        "10c0d97f-00a3-4f9e-8888-b0fd81c933bf": "Payments",
+        "11989bed-e274-4e42-a9ac-842c90b9a6d6": "Skills Offered",
+        "dd230109-97d5-411c-8292-69bbf592d8a6": "Skill_ID",
+        "3ccdd359-7268-4c6a-95c8-ebf99a55b096": "Skill_Name",
+        "ba997c99-72fb-40ea-b68c-089d4662651e": "NumberOfCourses",
+        "5bed6ceb-4541-4deb-98d9-ef48f7bbe828": "NumberOfTags"
+    },
+    "definitions": {
+        "type": "definitions",
+        "properties": [],
+        "GUID": "5d21f26c-4703-4a6c-8125-2313111bb500"
+    },
+    "polyglotDefinitions": {
+        "type": "polyglotDefinitions",
+        "properties": [],
+        "GUID": "2671393b-7f4e-4bb5-8272-852bbf927a7a"
+    },
+    "externalDefinitions": {
+        "type": "externalDefinitions",
+        "properties": [],
+        "GUID": "e97380d1-3db7-4488-bce8-abcb601e5304"
+    },
+    "sources": [],
+    "decorativeSymbols": [],
+    "dbVersion": "v5.0",
+    "dbVendor": "MongoDB",
+    "appTarget": "MONGODB",
+    "creationTS": "2022-10-07T18:14:34.857Z",
+    "GUID": "90d2f6cb-e4ee-4734-a504-2ec1b8d47906",
+    "isLineageEnabled": false,
+    "hackoladeMeta": {
+        "validationErrors": {
+            "modelName": false
+        }
+    },
+    "lastModifTS": "2022-10-07T22:16:51.510Z",
+    "persistenceSchemaVersion": "6",
+    "isCreatedByPlugin": true,
+    "pluginInformation": {
+        "pluginEngineVersion": "1.0.0"
+    },
+    "applicationInformation": {
+        "version": "6.5.3"
+    },
+    "settings": {
+        "centralPane": {
+            "dbLevel": {
+                "erd": [
+                    {
+                        "GUID": "6747436a-a84f-4f62-804a-f8c4d2bbf1d7",
+                        "x": 130.23428571428576,
+                        "y": 80,
+                        "width": 235,
+                        "height": 123,
+                        "color": {}
+                    },
+                    {
+                        "GUID": "409cf8c2-97c7-424c-b33b-39e5da3c08f5",
+                        "x": 421.67428571428576,
+                        "y": 80,
+                        "width": 248,
+                        "height": 141,
+                        "color": {}
+                    },
+                    {
+                        "GUID": "32b68848-e699-4c7b-a6f6-70c3cd46205e",
+                        "x": 433.98285714285777,
+                        "y": 423.64571428571435,
+                        "width": 235,
+                        "height": 105,
+                        "color": {}
+                    },
+                    {
+                        "GUID": "0c790199-fc53-415a-b198-cd677319a431",
+                        "x": 450.5942857142859,
+                        "y": 275.1828571428572,
+                        "width": 202,
+                        "height": 87,
+                        "color": {}
+                    },
+                    {
+                        "GUID": "17192376-4bcb-42ae-9b05-aef76be73026",
+                        "x": 128.44000000000003,
+                        "y": 418.6228571428579,
+                        "width": 162,
+                        "height": 33,
+                        "color": {}
+                    },
+                    {
+                        "GUID": "75aa8fa9-8433-4acf-be0f-a521e1b45b23",
+                        "x": 107.37714285714286,
+                        "y": 488.7371428571432,
+                        "width": 207,
+                        "height": 33,
+                        "color": {}
+                    },
+                    {
+                        "GUID": "73739884-669a-49e3-9b62-6084117deb49",
+                        "x": 115.7542857142858,
+                        "y": 552.7200000000003,
+                        "width": 195,
+                        "height": 33,
+                        "color": {}
+                    },
+                    {
+                        "GUID": "2634324c-a225-4233-8718-24b44065a699",
+                        "x": 503.6457142857149,
+                        "y": 614.2857142857149,
+                        "width": 143,
+                        "height": 100,
+                        "color": {}
+                    },
+                    {
+                        "GUID": "10c0d97f-00a3-4f9e-8888-b0fd81c933bf",
+                        "x": 122.88571428571414,
+                        "y": 629.3885714285724,
+                        "width": 178,
+                        "height": 100,
+                        "color": {}
+                    },
+                    {
+                        "GUID": "11989bed-e274-4e42-a9ac-842c90b9a6d6",
+                        "x": 130.36571428571435,
+                        "y": 243.63428571428577,
+                        "width": 248,
+                        "height": 105,
+                        "color": {}
+                    }
+                ],
+                "buckets": [
+                    {
+                        "x": 67.37714285714286,
+                        "y": 40,
+                        "GUID": "8daa243e-0e15-4a13-b129-a0ce1b4d0075"
+                    }
+                ],
+                "collapsedNodes": [],
+                "activeRelationship": "",
+                "activeRelationshipFields": {
+                    "childField": [],
+                    "parentField": []
+                },
+                "selectedCollections": [],
+                "displayColorPicker": false,
+                "graphView": {
+                    "erd": [],
+                    "buckets": [],
+                    "decorativeSymbols": [],
+                    "forceLayout": true,
+                    "defaultLinkLength": 300
+                },
+                "diagramViews": [],
+                "decorativeSymbols": [],
+                "nestedCollectionsLayout": "horizontal",
+                "options": []
+            },
+            "collectionLevel": {},
+            "changed": false
+        },
+        "dtDiagram": {
+            "collapsedNodes": [],
+            "shouldDistributeCollections": false
+        }
+    }
+}
