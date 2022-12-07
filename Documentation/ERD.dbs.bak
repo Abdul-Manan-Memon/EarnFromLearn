@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="Fyp" id="Project-759" database="MongoDb" >
+	<schema name="EarnFromLearn" >
+		<table name="Course" prior="Course_info" >
+			<column name="_id" type="objectId" jt="-8" mandatory="y" />
+			<column name="Name" type="string" jt="12" mandatory="y" />
+			<column name="Description" type="string" jt="12" mandatory="y" />
+			<column name="Rating" type="int" jt="4" />
+			<column name="Duration" type="timestamp" jt="93" />
+			<column name="Instructors" type="array[object]" jt="4999545" >
+				<column name="Instructor_ID" type="objectId" jt="-8" mandatory="y" />
+				<column name="Instructor_Name" type="string" jt="12" />
+			</column>
+			<column name="Review" type="array[object]" jt="4999545" >
+				<column name="Review_ID" type="objectId" jt="-8" mandatory="y" />
+				<column name="Review_Comments" type="string" jt="12" />
+				<column name="Reviewer_ID" type="objectId" jt="-8" mandatory="y" />
+			</column>
+			<column name="Lessons" type="array[object]" jt="4999545" >
+				<column name="Lesson_ID" type="objectId" jt="-8" mandatory="y" />
+				<column name="Lesson_Duration" type="timestamp" jt="93" mandatory="y" />
+				<column name="Video_Lecture" type="object" jt="4999544" mandatory="y" />
+				<column name="Learning_Material" type="array[object]" jt="4999545" />
+			</column>
+			<column name="Course_Test" type="array[object]" jt="4999545" >
+				<column name="Test_Title" type="string" jt="12" mandatory="y" />
+				<column name="Test_Material" type="array[object]" jt="4999545" mandatory="y" />
+				<column name="Test_Time" type="timestamp" jt="93" mandatory="y" />
+				<column name="MaxScore" type="double" jt="8" mandatory="y" />
+			</column>
+			<index name="_id_" unique="PRIMARY_KEY" >
+				<column name="_id" />
+			</index>
+			<fk name="fk_Course_Instrutor" virtual="y" to_schema="EarnFromLearn" to_table="Instrutor" >
+				<fk_column name="Instructors.Instructor_ID" pk="_id" />
+			</fk>
+			<fk name="fk_Course_Users" virtual="y" to_schema="EarnFromLearn" to_table="Users" >
+				<fk_column name="Review.Reviewer_ID" pk="_id" />
+			</fk>
+		</table>
+		<table name="Installments" prior="Collection_0" >
+			<column name="_id" type="objectId" jt="-8" mandatory="y" />
+			<column name="Remaining Amount" type="double" jt="8" mandatory="y" />
+			<column name="Previous_installment_Date" prior="Previous_Paid_Date" type="date" jt="91" mandatory="y" />
+			<column name="Next_Installment_Date" type="date" jt="91" mandatory="y" />
+			<column name="Payment_ID" type="objectId" jt="-8" mandatory="y" />
+			<index name="_id_" unique="PRIMARY_KEY" >
+				<column name="_id" />
+			</index>
+			<fk name="fk_Installments_Payment" virtual="y" to_schema="EarnFromLearn" to_table="Payment" >
+				<fk_column name="Payment_ID" pk="_id" />
+			</fk>
+		</table>
+		<table name="Instrutor" prior="Student_0" >
+			<column name="_id" type="objectId" jt="-8" mandatory="y" />
+			<column name="Instructor_Name" prior="Student_Name" type="string" jt="12" mandatory="y" />
+			<column name="Email" type="string" jt="12" mandatory="y" />
+			<column name="Phone_Number" type="string" jt="12" mandatory="y" />
+			<column name="Qualification" type="string" jt="12" mandatory="y" />
+			<column name="Experience" type="int" jt="4" />
+			<column name="Area_of_Expertise" type="string" jt="12" mandatory="y" />
+			<column name="Courses" type="array[object]" jt="4999545" >
+				<column name="Course_ID" type="objectId" jt="-8" mandatory="y" />
+				<column name="Name" type="string" jt="12" mandatory="y" />
+				<column name="Description" type="string" jt="12" mandatory="y" />
+			</column>
+			<column name="User_ID" type="objectId" jt="-8" mandatory="y" />
+			<index name="_id_" unique="PRIMARY_KEY" >
+				<column name="_id" />
+			</index>
+			<fk name="fk_Instrutor_Users" virtual="y" to_schema="EarnFromLearn" to_table="Users" >
+				<fk_column name="User_ID" pk="_id" />
+			</fk>
+			<fk name="fk_Instrutor_Course" virtual="y" to_schema="EarnFromLearn" to_table="Course" >
+				<fk_column name="Courses.Course_ID" pk="_id" />
+			</fk>
+		</table>
+		<table name="JOB" prior="Jobs" >
+			<column name="_id" type="objectId" jt="-8" mandatory="y" />
+			<column name="Job_title" type="string" jt="12" mandatory="y" />
+			<column name="Description" type="string" jt="12" mandatory="y" />
+			<column name="Skills_Required" type="array[object]" jt="4999545" >
+				<column name="Skill_ID" type="objectId" jt="-8" mandatory="y" />
+				<column name="Skill_Name" type="string" jt="12" mandatory="y" />
+			</column>
+			<index name="_id_" unique="PRIMARY_KEY" >
+				<column name="_id" />
+			</index>
+			<fk name="fk_JOB_Skill" virtual="y" to_schema="EarnFromLearn" to_table="Skill" >
+				<fk_column name="Skills_Required.Skill_ID" pk="_id" />
+			</fk>
+		</table>
+		<table name="Payment" prior="Collection_0" >
+			<column name="_id" type="objectId" jt="-8" mandatory="y" />
+			<column name="Subscription_Amount" prior="Amount" type="double" jt="8" mandatory="y" />
+			<column name="Payment_Date" prior="Paid_Date" type="date" jt="91" mandatory="y" />
+			<column name="User_ID" type="objectId" jt="-8" mandatory="y" />
+			<index name="_id_" unique="PRIMARY_KEY" >
+				<column name="_id" />
+			</index>
+			<fk name="fk_Payment_Users" virtual="y" to_schema="EarnFromLearn" to_table="Users" >
+				<fk_column name="User_ID" pk="_id" />
+			</fk>
+		</table>
+		<table name="Recruiter" prior="Student_0" >
+			<column name="_id" type="objectId" jt="-8" mandatory="y" />
+			<column name="Recruiter_Name" prior="Student_Name" type="string" jt="12" mandatory="y" />
+			<column name="Email" type="string" jt="12" mandatory="y" />
+			<column name="Phone_Number" type="string" jt="12" mandatory="y" />
+			<column name="Company_Name" type="string" jt="12" mandatory="y" />
+			<column name="Company Website" type="string" jt="12" mandatory="y" />
+			<column name="JOBS" type="array[object]" jt="4999545" >
+				<column name="Job_ID" type="objectId" jt="-8" mandatory="y" />
+				<column name="Job_Title" type="string" jt="12" mandatory="y" />
+				<column name="Job_Description" type="string" jt="12" mandatory="y" />
+			</column>
+			<column name="User_ID" type="objectId" jt="-8" mandatory="y" />
+			<index name="_id_" unique="PRIMARY_KEY" >
+				<column name="_id" />
+			</index>
+			<fk name="fk_Recruiter_Users" virtual="y" to_schema="EarnFromLearn" to_table="Users" >
+				<fk_column name="User_ID" pk="_id" />
+			</fk>
+			<fk name="fk_Recruiter_JOB" virtual="y" to_schema="EarnFromLearn" to_table="JOB" >
+				<fk_column name="JOBS.Job_ID" pk="_id" />
+			</fk>
+		</table>
+		<table name="Score" prior="Collection_1" >
+			<column name="_id" type="objectId" jt="-8" mandatory="y" />
+			<column name="Test_ID" type="objectId" jt="-8" mandatory="y" />
+			<column name="Student_ID" type="objectId" jt="-8" mandatory="y" />
+			<column name="Score" type="double" jt="8" mandatory="y" />
+			<index name="_id_" unique="PRIMARY_KEY" >
+				<column name="_id" />
+			</index>
+			<fk name="fk_Score_Test" virtual="y" to_schema="EarnFromLearn" to_table="Test" >
+				<fk_column name="Test_ID" pk="_id" />
+			</fk>
+			<fk name="fk_Score_Student" virtual="y" to_schema="EarnFromLearn" to_table="Student" >
+				<fk_column name="Student_ID" pk="_id" />
+			</fk>
+		</table>
+		<table name="Skill" prior="Collection_0" >
+			<column name="_id" type="objectId" jt="-8" mandatory="y" />
+			<column name="Skill_Name" type="string" jt="12" mandatory="y" />
+			<column name="Subscription" type="double" jt="8" mandatory="y" />
+			<column name="Students" type="array[object]" jt="4999545" >
+				<column name="Student_ID" type="objectId" jt="-8" mandatory="y" />
+				<column name="Student_Name" type="string" jt="12" />
+			</column>
+			<column name="Course" prior="Courses" type="array[object]" jt="4999545" />
+			<index name="_id_" unique="PRIMARY_KEY" >
+				<column name="_id" />
+			</index>
+			<fk name="fk_Skill_Course" virtual="y" to_schema="EarnFromLearn" to_table="Course" >
+				<fk_column name="Course" pk="_id" />
+			</fk>
+			<fk name="fk_Skill_Student" virtual="y" to_schema="EarnFromLearn" to_table="Student" >
+				<fk_column name="Students.Student_ID" pk="_id" />
+			</fk>
+		</table>
+		<table name="Student" prior="Collection_1" >
+			<column name="_id" type="objectId" jt="-8" mandatory="y" />
+			<column name="Student_Name" type="string" jt="12" mandatory="y" />
+			<column name="Email" type="string" jt="12" mandatory="y" />
+			<column name="Phone_Number" type="string" jt="12" mandatory="y" />
+			<column name="DOB" type="date" jt="91" mandatory="y" />
+			<column name="Qualification" type="string" jt="12" mandatory="y" />
+			<column name="JOBS" type="array[object]" jt="4999545" >
+				<column name="Job_ID" type="objectId" jt="-8" mandatory="y" />
+				<column name="Job_Title" type="string" jt="12" mandatory="y" />
+				<column name="Job_Description" type="string" jt="12" mandatory="y" />
+			</column>
+			<column name="Skills_Enrolled" prior="Skills_Required" type="array[object]" jt="4999545" >
+				<column name="Skill_ID" type="objectId" jt="-8" mandatory="y" />
+				<column name="Skill_Name" type="string" jt="12" mandatory="y" />
+			</column>
+			<column name="User_ID" type="objectId" jt="-8" mandatory="y" />
+			<column name="Skills_Possessed" type="array[object]" jt="4999545" >
+				<column name="Skill_Name" type="string" jt="12" mandatory="y" />
+				<column name="Level of Expertise" type="int" jt="4" mandatory="y" />
+			</column>
+			<column name="Scores" type="array[int]" jt="2003" mandatory="y" />
+			<index name="_id_" unique="PRIMARY_KEY" >
+				<column name="_id" />
+			</index>
+			<fk name="fk_Student_Users" virtual="y" to_schema="EarnFromLearn" to_table="Users" >
+				<fk_column name="User_ID" pk="_id" />
+			</fk>
+			<fk name="fk_Student_JOB" virtual="y" to_schema="EarnFromLearn" to_table="JOB" >
+				<fk_column name="JOBS.Job_ID" pk="_id" />
+			</fk>
+			<fk name="fk_Student_Skill" virtual="y" to_schema="EarnFromLearn" to_table="Skill" >
+				<fk_column name="Skills_Enrolled.Skill_ID" pk="_id" />
+			</fk>
+			<fk name="fk_Student_Score" virtual="y" to_schema="EarnFromLearn" to_table="Score" >
+				<fk_column name="Scores" pk="_id" />
+			</fk>
+		</table>
+		<table name="Test" prior="Tests" >
+			<column name="_id" type="objectId" jt="-8" mandatory="y" />
+			<column name="Test_Title" type="string" jt="12" mandatory="y" />
+			<column name="Type" type="enum" jt="12" mandatory="y" />
+			<column name="Test_Duration" type="timestamp" jt="93" mandatory="y" />
+			<column name="Test_Material" type="array[object]" jt="4999545" mandatory="y" />
+			<column name="Max_Score" type="array[object]" jt="4999545" mandatory="y" />
+			<index name="_id_" unique="PRIMARY_KEY" >
+				<column name="_id" />
+			</index>
+		</table>
+		<table name="Users" prior="User" >
+			<column name="_id" type="objectId" jt="-8" mandatory="y" />
+			<column name="Username" type="string" jt="12" mandatory="y" />
+			<column name="Password" type="string" jt="12" mandatory="y" />
+			<index name="_id_" unique="PRIMARY_KEY" >
+				<column name="_id" />
+			</index>
+		</table>
+	</schema>
+	<connector name="MongoDb" database="MongoDb" host="localhost" port="27017" user="admin" useSystemProxy="false" />
+	<layout name="ERD_Diagram" id="Layout-4fb" confirmed="y" joined_routing="y" show_column_type="y" show_relation="columns" >
+		<entity schema="EarnFromLearn" name="Course" color="00FF00" x="1344" y="176" />
+		<entity schema="EarnFromLearn" name="Instrutor" column="Courses" color="000080" x="1728" y="800" />
+		<entity schema="EarnFromLearn" name="Installments" color="B31A1A" x="1168" y="1136" />
+		<entity schema="EarnFromLearn" name="Course" column="Instructors" color="00FF00" x="1008" y="368" />
+		<entity schema="EarnFromLearn" name="Instrutor" color="000080" x="1456" y="688" />
+		<entity schema="EarnFromLearn" name="JOB" color="FFFF00" x="48" y="688" />
+		<entity schema="EarnFromLearn" name="Recruiter" column="JOBS" color="800080" x="336" y="1056" />
+		<entity schema="EarnFromLearn" name="Student" column="JOBS" color="00FFFF" x="416" y="240" />
+		<entity schema="EarnFromLearn" name="Course" column="Lessons" color="00FF00" x="1616" y="352" />
+		<entity schema="EarnFromLearn" name="Payment" color="B31A1A" x="1008" y="1072" />
+		<entity schema="EarnFromLearn" name="Recruiter" color="800080" x="64" y="960" />
+		<entity schema="EarnFromLearn" name="Course" column="Review" color="00FF00" x="1632" y="112" />
+		<entity schema="EarnFromLearn" name="Score" color="000000" x="960" y="592" />
+		<entity schema="EarnFromLearn" name="Skill" color="00FF00" x="1008" y="112" />
+		<entity schema="EarnFromLearn" name="Student" column="Skills_Enrolled" color="00FFFF" x="432" y="464" />
+		<entity schema="EarnFromLearn" name="Student" column="Skills_Possessed" color="00FFFF" x="112" y="512" />
+		<entity schema="EarnFromLearn" name="JOB" column="Skills_Required" color="FFFF00" x="384" y="720" />
+		<entity schema="EarnFromLearn" name="Student" color="00FFFF" x="48" y="272" />
+		<entity schema="EarnFromLearn" name="Skill" column="Students" color="00FF00" x="1360" y="80" />
+		<entity schema="EarnFromLearn" name="Test" color="000000" x="1088" y="736" />
+		<entity schema="EarnFromLearn" name="Users" color="C1D8EE" x="704" y="688" />
+		<group name="Student" color="00FFFF" >
+			<entity schema="EarnFromLearn" name="Student" />
+			<entity schema="EarnFromLearn" name="Student" column="Skills_Enrolled" />
+			<entity schema="EarnFromLearn" name="Student" column="JOBS" />
+			<entity schema="EarnFromLearn" name="Student" column="Skills_Possessed" />
+		</group>
+		<group name="Course" color="00FF00" >
+			<entity schema="EarnFromLearn" name="Skill" />
+			<entity schema="EarnFromLearn" name="Course" column="Lessons" />
+			<entity schema="EarnFromLearn" name="Skill" column="Students" />
+			<entity schema="EarnFromLearn" name="Course" column="Review" />
+			<entity schema="EarnFromLearn" name="Course" column="Instructors" />
+			<entity schema="EarnFromLearn" name="Course" />
+		</group>
+		<group name="Recruiter" color="800080" >
+			<entity schema="EarnFromLearn" name="Recruiter" />
+			<entity schema="EarnFromLearn" name="Recruiter" column="JOBS" />
+		</group>
+		<group name="Instructor" color="000080" >
+			<entity schema="EarnFromLearn" name="Instrutor" />
+			<entity schema="EarnFromLearn" name="Instrutor" column="Courses" />
+		</group>
+		<group name="JOB" color="FFFF00" >
+			<entity schema="EarnFromLearn" name="JOB" />
+			<entity schema="EarnFromLearn" name="JOB" column="Skills_Required" />
+		</group>
+		<group name="Subscription" color="990000" >
+			<entity schema="EarnFromLearn" name="Installments" />
+			<entity schema="EarnFromLearn" name="Payment" />
+		</group>
+		<group name="Tests" color="000000" >
+			<entity schema="EarnFromLearn" name="Score" />
+			<entity schema="EarnFromLearn" name="Test" />
+		</group>
+		<script name="Course_001" id="Editor-94f" language="SQL" confirmed="y" >
+			<string><![CDATA[EarnFromLearn.Course.update( {_id:..., {...} } )]]></string>
+		</script>
+		<script name="JSon" id="Editor-ac3" language="SQL" confirmed="y" >
+			<string><![CDATA[// REPLACE <database> and <collection> WITH AN EXISTING DATABASE AND COLLECTION
+<database>.<collection>.find()]]></string>
+		</script>
+		<script name="Skill" id="Editor-2077" language="SQL" confirmed="y" >
+			<string><![CDATA[EarnFromLearn.Skill.find()]]></string>
+		</script>
+		<script name="Student" id="Editor-560" language="SQL" confirmed="y" >
+			<string><![CDATA[EarnFromLearn.Student.find()]]></string>
+		</script>
+		<browser id="Browse-2e4" name="Courses" confirm_updates="y" confirmed="y" >
+			<browse_table schema="EarnFromLearn" entity="Student" x="20" y="20" width="400" height="300" record_view="y" />
+		</browser>
+		<browser id="Browse-120f" name="fk_Student_JOB" confirm_updates="y" confirmed="y" >
+			<browse_table schema="EarnFromLearn" entity="JOB" x="20" y="20" width="400" height="300" record_view="y" >
+				<browse_table schema="EarnFromLearn" entity="Student" fk="fk_Student_JOB" x="460" y="20" width="500" height="350" record_view="y" />
+			</browse_table>
+		</browser>
+	</layout>
+	<layout name="EarnFromLEarn_ERD" id="Layout-1221" show_relation="columns" >
+		<comment><![CDATA[Fyp]]></comment>
+		<entity schema="EarnFromLearn" name="Course" color="FFFF00" x="848" y="128" />
+		<entity schema="EarnFromLearn" name="Course" column="Course_Test" color="FFFF00" x="848" y="384" />
+		<entity schema="EarnFromLearn" name="Instrutor" column="Courses" color="00FF00" x="976" y="624" />
+		<entity schema="EarnFromLearn" name="Installments" color="800000" x="944" y="960" />
+		<entity schema="EarnFromLearn" name="Course" column="Instructors" color="FFFF00" x="1024" y="128" />
+		<entity schema="EarnFromLearn" name="Instrutor" color="00FF00" x="752" y="624" />
+		<entity schema="EarnFromLearn" name="JOB" color="800080" x="288" y="768" />
+		<entity schema="EarnFromLearn" name="Student" column="JOBS" color="C7F4BE" x="256" y="128" />
+		<entity schema="EarnFromLearn" name="Recruiter" column="JOBS" color="000080" x="304" y="1008" />
+		<entity schema="EarnFromLearn" name="Course" column="Lessons" color="FFFF00" x="1024" y="320" />
+		<entity schema="EarnFromLearn" name="Payment" color="800000" x="640" y="960" />
+		<entity schema="EarnFromLearn" name="Recruiter" color="000080" x="80" y="1008" />
+		<entity schema="EarnFromLearn" name="Course" column="Review" color="FFFF00" x="1024" y="224" />
+		<entity schema="EarnFromLearn" name="Score" color="FF0000" x="624" y="80" />
+		<entity schema="EarnFromLearn" name="Skill" color="00FFFF" x="64" y="544" />
+		<entity schema="EarnFromLearn" name="Student" column="Skills_Enrolled" color="C7F4BE" x="256" y="240" />
+		<entity schema="EarnFromLearn" name="Student" column="Skills_Possessed" color="C7F4BE" x="256" y="336" />
+		<entity schema="EarnFromLearn" name="JOB" column="Skills_Required" color="800080" x="496" y="768" />
+		<entity schema="EarnFromLearn" name="Student" color="C7F4BE" x="48" y="128" />
+		<entity schema="EarnFromLearn" name="Skill" column="Students" color="00FFFF" x="240" y="544" />
+		<entity schema="EarnFromLearn" name="Test" color="FF0000" x="512" y="256" />
+		<entity schema="EarnFromLearn" name="Users" color="397EC1" x="464" y="592" />
+		<group name="Course" color="FFFF00" >
+			<entity schema="EarnFromLearn" name="Course" column="Instructors" />
+			<entity schema="EarnFromLearn" name="Course" />
+			<entity schema="EarnFromLearn" name="Course" column="Course_Test" />
+			<entity schema="EarnFromLearn" name="Course" column="Lessons" />
+			<entity schema="EarnFromLearn" name="Course" column="Review" />
+		</group>
+		<group name="Students" color="EEF7EC" >
+			<entity schema="EarnFromLearn" name="Student" column="JOBS" />
+			<entity schema="EarnFromLearn" name="Student" column="Skills_Possessed" />
+			<entity schema="EarnFromLearn" name="Student" column="Skills_Enrolled" />
+			<entity schema="EarnFromLearn" name="Student" />
+		</group>
+		<group name="Instrutor" color="00FF00" >
+			<entity schema="EarnFromLearn" name="Instrutor" />
+			<entity schema="EarnFromLearn" name="Instrutor" column="Courses" />
+		</group>
+		<group name="Skill" color="00FFFF" >
+			<entity schema="EarnFromLearn" name="Skill" />
+			<entity schema="EarnFromLearn" name="Skill" column="Students" />
+		</group>
+		<group name="JOB" color="800080" >
+			<entity schema="EarnFromLearn" name="JOB" />
+			<entity schema="EarnFromLearn" name="JOB" column="Skills_Required" />
+		</group>
+		<group name="Recruiter" color="000080" >
+			<entity schema="EarnFromLearn" name="Recruiter" />
+			<entity schema="EarnFromLearn" name="Recruiter" column="JOBS" />
+		</group>
+		<group name="Test" color="FF0000" >
+			<entity schema="EarnFromLearn" name="Test" />
+			<entity schema="EarnFromLearn" name="Score" />
+		</group>
+		<group name="Subscription" color="800000" >
+			<entity schema="EarnFromLearn" name="Installments" />
+			<entity schema="EarnFromLearn" name="Payment" />
+		</group>
+	</layout>
+</project>
