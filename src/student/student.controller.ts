@@ -13,7 +13,7 @@ export class StudentController {
     return this.Student_Service.getStudentByID(id);
   }
   @Post('/signup')
-  Signup() : Promise<>{
-    
+  Signup(@Body() NewSignup : SignUpDto) : Promise<Student>{
+    return this.Student_Service.Signup(NewSignup);
   } 
 }

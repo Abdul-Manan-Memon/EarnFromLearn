@@ -12,7 +12,6 @@ export class StudentRepository {
   constructor(
     @InjectRepository(Student)
     private Student_Repository: MongoRepository<Student>,
-    private User_Repo : UserRepository,
   ) {}
   async getStudentByID(id: ObjectID): Promise<Student> {
     console.log('Before findone In Repo');

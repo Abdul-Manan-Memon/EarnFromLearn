@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, Redirect } from '@nestjs/common';
 import { SignUpDto } from 'src/Dto/SignUp.dto';
 import { ObjectID } from 'typeorm';
 import { Student } from '../Database/Entities/student.entity';
@@ -17,9 +17,10 @@ export class StudentService {
     return Student;
   }
   async Signup(NewSignup: SignUpDto): Promise<Student>{
+  //  const { Username, Password} = NewSignup;
     const Student = await this.Student_Repository.CreateStudent(NewSignup);
     if (!Student) {
-      throw new NotFoundException('Account Can Not Be Created');
+      throw new NotFoundException('Student Account Can Not Be Created');
     }
     return Student;
     
