@@ -8,16 +8,13 @@ import { StudentRepository } from '../Database/Repositories/student.repository';
 export class StudentService {
   constructor(private readonly Student_Repository: StudentRepository) {}
   async getStudentByID(id: ObjectID): Promise<Student> {
-    //console.log('Before Await In Service');
     const Student = await this.Student_Repository.getStudentByID(id);
-    //console.log('After Await In Service');
     if (!Student) {
       throw new NotFoundException('Student ID Not Found');
     }
     return Student;
   }
   async Signup(NewSignup: SignUpDto): Promise<Student>{
-  //  const { Username, Password} = NewSignup;
     const Student = await this.Student_Repository.CreateStudent(NewSignup);
     if (!Student) {
       throw new NotFoundException('Student Account Can Not Be Created');
