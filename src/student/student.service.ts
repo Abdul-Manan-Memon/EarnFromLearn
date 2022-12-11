@@ -1,4 +1,10 @@
-import { Injectable, NotFoundException, Redirect } from '@nestjs/common';
+import {
+  forwardRef,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { AuthService } from 'src/auth/auth.service';
 import { SignUpDto } from 'src/Dto/SignUp.dto';
 import { ObjectID } from 'typeorm';
 import { Student } from '../Database/Entities/student.entity';
@@ -6,7 +12,11 @@ import { StudentRepository } from '../Database/Repositories/student.repository';
 
 @Injectable()
 export class StudentService {
-  constructor(private readonly Student_Repository: StudentRepository) {}
+  constructor(
+    private readonly Student_Repository: StudentRepository,
+    @Inject(forwardRef(() => AuthService))
+    private readonly auth_service: AuthService,
+  ) {}
   async getStudentByID(id: ObjectID): Promise<Student> {
     const Student = await this.Student_Repository.getStudentByID(id);
     if (!Student) {
@@ -14,12 +24,12 @@ export class StudentService {
     }
     return Student;
   }
-  async Signup(NewSignup: SignUpDto): Promise<Student>{
+  async Signup(NewSignup: SignUpDto): Promise<Student> {
+    await this.auth_service.SignUp(NewSignup);
     const Student = await this.Student_Repository.CreateStudent(NewSignup);
     if (!Student) {
       throw new NotFoundException('Student Account Can Not Be Created');
     }
     return Student;
-    
   }
 }

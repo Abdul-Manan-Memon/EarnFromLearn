@@ -1,5 +1,5 @@
-export class CreateUserDto{
-    User_ID: string;
-    Username: string;
-    Password: string;   
+export class CreateUserDto {
+  User_ID: string;
+  Username: string;
+  Password: string;
 }
