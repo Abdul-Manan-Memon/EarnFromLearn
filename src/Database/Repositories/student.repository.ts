@@ -1,11 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateUserDto } from 'src/Dto/createUser.dto';
 import { SignUpDto } from 'src/Dto/SignUp.dto';
 import { MongoRepository, ObjectID } from 'typeorm';
 import { Student } from '../Entities/student.entity';
-import { User } from '../Entities/user.entity';
-import { UserRepository } from './user.repository';
 
 @Injectable()
 export class StudentRepository {
@@ -14,7 +11,7 @@ export class StudentRepository {
     private Student_Repository: MongoRepository<Student>,
   ) {}
   async getStudentByID(id: ObjectID): Promise<Student> {
-    console.log('Before findone In Repo');
+    //console.log('Before findone In Repo');
     return await this.Student_Repository.findOne({ where: { Student_ID: id } });
   }
   async CreateStudent(NewSignup: SignUpDto) : Promise<Student> {

@@ -17,7 +17,7 @@ export class StudentController {
   }
   @Post('/signup')
   Signup(@Body() NewSignup : SignUpDto) : Promise<Student>{
-    this.User_Service.Signup(NewSignup);
+    this.User_Service.SignUp(NewSignup);
     return this.Student_Service.Signup(NewSignup);
   } 
 }

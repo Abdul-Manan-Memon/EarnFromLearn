@@ -3,12 +3,17 @@ import { Column, Entity, ObjectID, ObjectIdColumn } from 'typeorm';
 export class Student {
   @ObjectIdColumn()
   Student_ID: ObjectID;
-  @Column()
+  @Column({nullable: false})
   First_Name: string;
   @Column()
   Last_Name: string;
-  @Column()
+  @Column(
+      {
+        nullable: false,
+        unique: true
+      }
+    )
   Email: string;
-  @Column()
+  @Column({nullable: false})
   Password: string
 }
