@@ -13,5 +13,5 @@ export class Student {
   })
   Email: string;
   @Column({ nullable: false })
-  Password: string;
+  User_ID: ObjectID;
 }

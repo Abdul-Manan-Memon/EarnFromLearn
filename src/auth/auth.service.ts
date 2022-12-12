@@ -5,30 +5,34 @@ import {
   InternalServerErrorException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { User } from 'src/Database/Entities/user.entity';
 import { UserRepository } from 'src/Database/Repositories/user.repository';
 import { CreateUserDto } from 'src/Dto/createUser.dto';
 import { SignUpDto } from 'src/Dto/SignUp.dto';
 import { SignInDto } from 'src/Dto/SingIn.dto';
+import { Roles } from 'src/Enum/Roles.enum';
 import { StudentService } from 'src/student/student.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly User_Repo: UserRepository,
-    @Inject(forwardRef(() => StudentService))
     private readonly Student_Service: StudentService,
   ) {}
-  async SignUp(NewSignup: SignUpDto): Promise<User> {
+  async SignUp(NewSignup: SignUpDto): Promise<void> {
     const { Username, Password, Role } = NewSignup;
     const NewRequest: CreateUserDto = {
       Username,
       Password,
-      User_ID: Role,
+      Role,
     };
     try {
-      const NewUser = await this.User_Repo.CreateUser(NewRequest);
-      return NewUser;
+      await this.User_Repo.CreateUser(NewRequest);
+      const NewUser = await this.User_Repo.getUserIDByUsername(Username);
+      if (NewUser.Role === Roles.Student) {
+        this.Student_Service.Signup(NewSignup, NewUser.User_ID);
+      } else if (NewUser.Role === Roles.Instructor) {
+      } else if (NewUser.Role === Roles.Recruiter) {
+      }
     } catch (error) {
       if (error) {
         //throw new ConflictException(`Username Alrady Exits`);
@@ -38,15 +42,14 @@ export class AuthService {
       }
     }
   }
-  async SignIn(UserLogin: SignInDto): Promise<User> {
+  async SignIn(UserLogin: SignInDto) {
     const User_ = await this.User_Repo.ValidateUser(UserLogin);
     if (!User_) {
       throw new UnauthorizedException('Invalid Credentials');
-    } else if (User_.User_ID === 'student') {
-      this.Student_Service.getStudentByID(User_.User_ID);
-    } else if (User_.User_ID === 'instructor') {
-    } else if (User_.User_ID === 'recruiter') {
+    } else if (User_.Role === Roles.Student) {
+      return this.Student_Service.getStudentByID(User_.User_ID);
+    } else if (User_.Role === Roles.Instructor) {
+    } else if (User_.Role === Roles.Recruiter) {
     }
-    return User_;
   }
 }

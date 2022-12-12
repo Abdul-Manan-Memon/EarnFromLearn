@@ -14,15 +14,14 @@ export class UserRepository {
   private async Hashing(Password: string, salt: string): Promise<string> {
     return bcrypt.hash(Password, salt);
   }
-  async CreateUser(NewRequest: CreateUserDto): Promise<User> {
-    const { User_ID, Username, Password } = NewRequest;
+  async CreateUser(NewRequest: CreateUserDto): Promise<void> {
+    const { Username, Password, Role } = NewRequest;
     const NewUser = new User();
-    NewUser.User_ID = User_ID;
     NewUser.Username = Username;
     NewUser.Salt = await bcrypt.genSalt();
     NewUser.Password = await this.Hashing(Password, NewUser.Salt);
+    NewUser.Role = Role;
     await this.User_Repository.save(NewUser);
-    return NewUser;
   }
   async ValidateUser(UserLogin: SignInDto): Promise<User> {
     const { Username, Password } = UserLogin;
@@ -32,5 +31,10 @@ export class UserRepository {
     if (user && user.ValidatePassword(Password)) {
       return user;
     }
+  }
+  async getUserIDByUsername(Username: string): Promise<User> {
+    return await this.User_Repository.findOne({
+      where: { Username: Username },
+    });
   }
 }

@@ -12,11 +12,7 @@ import { StudentRepository } from '../Database/Repositories/student.repository';
 
 @Injectable()
 export class StudentService {
-  constructor(
-    private readonly Student_Repository: StudentRepository,
-    @Inject(forwardRef(() => AuthService))
-    private readonly auth_service: AuthService,
-  ) {}
+  constructor(private readonly Student_Repository: StudentRepository) {}
   async getStudentByID(id: ObjectID): Promise<Student> {
     const Student = await this.Student_Repository.getStudentByID(id);
     if (!Student) {
@@ -24,9 +20,8 @@ export class StudentService {
     }
     return Student;
   }
-  async Signup(NewSignup: SignUpDto): Promise<Student> {
-    await this.auth_service.SignUp(NewSignup);
-    const Student = await this.Student_Repository.CreateStudent(NewSignup);
+  async Signup(NewSignup: SignUpDto, ID: ObjectID): Promise<Student> {
+    const Student = await this.Student_Repository.CreateStudent(NewSignup, ID);
     if (!Student) {
       throw new NotFoundException('Student Account Can Not Be Created');
     }

@@ -14,14 +14,13 @@ export class StudentRepository {
     //console.log('Before findone In Repo');
     return await this.Student_Repository.findOne({ where: { Student_ID: id } });
   }
-  async CreateStudent(NewSignup: SignUpDto): Promise<Student> {
+  async CreateStudent(NewSignup: SignUpDto, ID: ObjectID): Promise<Student> {
     const NewStudent = new Student();
-    const { First_Name, Last_Name, Username, Password, Confirm_Password } =
-      NewSignup;
+    const { First_Name, Last_Name, Username } = NewSignup;
+    NewStudent.User_ID = ID;
     NewStudent.First_Name = First_Name;
     NewStudent.Last_Name = Last_Name;
     NewStudent.Email = Username;
-    NewStudent.Password = Password;
     await this.Student_Repository.save(NewStudent);
     return NewStudent;
   }

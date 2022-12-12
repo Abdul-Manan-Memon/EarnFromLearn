@@ -1,5 +1,7 @@
+import { Roles } from 'src/Enum/Roles.enum';
+
 export class CreateUserDto {
-  User_ID: string;
   Username: string;
   Password: string;
+  Role: Roles;
 }
