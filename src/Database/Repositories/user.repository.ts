@@ -32,7 +32,7 @@ export class UserRepository {
       return user;
     }
   }
-  async getUserIDByUsername(Username: string): Promise<User> {
+  async getUserByUsername(Username: string): Promise<User> {
     return await this.User_Repository.findOne({
       where: { Username: Username },
     });

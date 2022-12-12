@@ -1,5 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { SignUpDto } from 'src/Dto/SignUp.dto';
+import { Controller, Get, Param } from '@nestjs/common';
 import { ObjectID } from 'typeorm';
 import { Student } from '../Database/Entities/student.entity';
 import { StudentService } from './student.service';
@@ -11,8 +10,4 @@ export class StudentController {
   getStudentByID(@Param('id') id: ObjectID): Promise<Student> {
     return this.Student_Service.getStudentByID(id);
   }
-  // @Post('/signup')
-  // Signup(@Body() NewSignup: SignUpDto): Promise<Student> {
-  //   return this.Student_Service.Signup(NewSignup);
-  // }
 }

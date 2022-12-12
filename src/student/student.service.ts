@@ -1,10 +1,4 @@
-import {
-  forwardRef,
-  Inject,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
-import { AuthService } from 'src/auth/auth.service';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { SignUpDto } from 'src/Dto/SignUp.dto';
 import { ObjectID } from 'typeorm';
 import { Student } from '../Database/Entities/student.entity';
