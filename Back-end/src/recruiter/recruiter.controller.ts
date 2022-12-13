@@ -1,6 +1,6 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { ObjectID } from 'typeorm';
-import { Recruiter } from '../../src/Database/Entities/recruiter.entity';
+import { Recruiter } from '../Database/Entities/recruiter.entity';
 import { RecruiterService } from './recruiter.service';
 
 @Controller('recruiter')

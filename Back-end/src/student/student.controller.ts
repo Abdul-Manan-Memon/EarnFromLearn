@@ -1,6 +1,6 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { ObjectID } from 'typeorm';
-import { Student } from '../../src/Database/Entities/student.entity';
+import { Student } from '../Database/Entities/student.entity';
 import { StudentService } from './student.service';
 
 @Controller('student')

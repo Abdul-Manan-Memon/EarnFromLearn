@@ -1,4 +1,4 @@
-import { Roles } from 'src/Enum/Roles.enum';
+import { Roles } from '../Enum/Roles.enum';
 
 export class CreateUserDto {
   Username: string;

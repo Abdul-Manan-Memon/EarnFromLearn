@@ -3,14 +3,14 @@ import {
   InternalServerErrorException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { UserRepository } from 'src/Database/Repositories/user.repository';
-import { CreateUserDto } from 'src/Dto/createUser.dto';
-import { SignUpDto } from 'src/Dto/SignUp.dto';
-import { SignInDto } from 'src/Dto/SingIn.dto';
-import { Roles } from 'src/Enum/Roles.enum';
-import { InstructorService } from 'src/instructor/instructor.service';
-import { RecruiterService } from 'src/recruiter/recruiter.service';
-import { StudentService } from 'src/student/student.service';
+import { UserRepository } from '../Database/Repositories/user.repository';
+import { CreateUserDto } from '../Dto/createUser.dto';
+import { SignUpDto } from '../Dto/SignUp.dto';
+import { SignInDto } from '../Dto/SingIn.dto';
+import { Roles } from '../Enum/Roles.enum';
+import { InstructorService } from '../instructor/instructor.service';
+import { RecruiterService } from '../recruiter/recruiter.service';
+import { StudentService } from '../student/student.service';
 
 @Injectable()
 export class AuthService {

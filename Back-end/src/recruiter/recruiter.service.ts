@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { SignUpDto } from 'src/Dto/SignUp.dto';
+import { SignUpDto } from '../Dto/SignUp.dto';
 import { ObjectID } from 'typeorm';
-import { Recruiter } from '../../src/Database/Entities/recruiter.entity';
-import { RecruiterRepository } from '../../src/Database/Repositories/recruiter.repository';
+import { Recruiter } from '../Database/Entities/recruiter.entity';
+import { RecruiterRepository } from '../Database/Repositories/recruiter.repository';
 
 @Injectable()
 export class RecruiterService {
