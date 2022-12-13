@@ -22,7 +22,7 @@ export class RecruiterRepository {
   ): Promise<Recruiter> {
     const NewRecruiter = new Recruiter();
     const { First_Name, Last_Name, Username } = NewSignup;
-    NewRecruiter.User_ID = ID;
+    NewRecruiter.Recruiter_ID = ID;
     NewRecruiter.First_Name = First_Name;
     NewRecruiter.Last_Name = Last_Name;
     NewRecruiter.Email = Username;

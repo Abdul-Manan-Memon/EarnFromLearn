@@ -1,8 +1,8 @@
 import { Column, Entity, ObjectID, ObjectIdColumn } from 'typeorm';
 @Entity()
-export class Instructor {
+export class Recruiter {
   @ObjectIdColumn()
-  Instructor_ID: ObjectID;
+  Recruiter_ID: ObjectID;
   @Column({ nullable: false })
   First_Name: string;
   @Column()
@@ -12,6 +12,4 @@ export class Instructor {
     unique: true,
   })
   Email: string;
-  @Column({ nullable: false })
-  User_ID: ObjectID;
 }

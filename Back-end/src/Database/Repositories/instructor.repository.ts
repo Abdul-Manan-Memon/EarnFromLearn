@@ -22,7 +22,7 @@ export class InstructorRepository {
   ): Promise<Instructor> {
     const NewInstructor = new Instructor();
     const { First_Name, Last_Name, Username } = NewSignup;
-    NewInstructor.User_ID = ID;
+    NewInstructor.Instructor_ID = ID;
     NewInstructor.First_Name = First_Name;
     NewInstructor.Last_Name = Last_Name;
     NewInstructor.Email = Username;

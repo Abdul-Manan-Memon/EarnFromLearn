@@ -17,7 +17,7 @@ export class StudentRepository {
   async CreateStudent(NewSignup: SignUpDto, ID: ObjectID): Promise<Student> {
     const NewStudent = new Student();
     const { First_Name, Last_Name, Username } = NewSignup;
-    NewStudent.User_ID = ID;
+    NewStudent.Student_ID = ID;
     NewStudent.First_Name = First_Name;
     NewStudent.Last_Name = Last_Name;
     NewStudent.Email = Username;

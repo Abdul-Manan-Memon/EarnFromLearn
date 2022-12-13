@@ -13,6 +13,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "start:dev": "nest start --watch",
     "start": "port=3001 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

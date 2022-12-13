@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Instructor } from '../Database/Entities/instructor.entity';
-import { InstructorRepository } from '../Database/Repositories/instructor.repository';
+import { Instructor } from 'src/Database/Entities/instructor.entity';
+import { InstructorRepository } from 'src/Database/Repositories/instructor.repository';
 import { InstructorController } from './instructor.controller';
 import { InstructorService } from './instructor.service';
 

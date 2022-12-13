@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { SignUpDto } from 'src/Dto/SignUp.dto';
 import { ObjectID } from 'typeorm';
-import { Student } from '../Database/Entities/student.entity';
-import { StudentRepository } from '../Database/Repositories/student.repository';
+import { Student } from '../../src/Database/Entities/student.entity';
+import { StudentRepository } from '../../src/Database/Repositories/student.repository';
 
 @Injectable()
 export class StudentService {
