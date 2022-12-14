@@ -14,7 +14,12 @@ export class User {
   Password: string;
   @Column({ nullable: false })
   Salt: string;
-  @Column({ nullable: false, default: 'Student' })
+  @Column({
+    nullable: false,
+    default: Roles.Student,
+    type: 'enum',
+    enum: Roles,
+  })
   Role: Roles;
   async ValidatePassword(Password: string): Promise<boolean> {
     const Hash = await bcrypt.hash(Password, this.Salt);
