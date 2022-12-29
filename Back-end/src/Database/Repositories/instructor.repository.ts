@@ -20,13 +20,7 @@ export class InstructorRepository {
     NewSignup: SignUpDto,
     ID: ObjectID,
   ): Promise<Instructor> {
-    const NewInstructor = new Instructor();
-    const { First_Name, Last_Name, Username } = NewSignup;
-    NewInstructor.Instructor_ID = ID;
-    NewInstructor.First_Name = First_Name;
-    NewInstructor.Last_Name = Last_Name;
-    NewInstructor.Email = Username;
-    await this.Instructor_Repository.save(NewInstructor);
-    return NewInstructor;
+    const NewInstructor = new Instructor(NewSignup, ID);
+    return await this.Instructor_Repository.save(NewInstructor);
   }
 }

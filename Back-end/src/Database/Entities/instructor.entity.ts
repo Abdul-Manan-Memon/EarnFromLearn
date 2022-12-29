@@ -1,4 +1,12 @@
-import { Column, Entity, ObjectID, ObjectIdColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ObjectID,
+  ObjectIdColumn,
+  OneToMany,
+} from 'typeorm';
+import { Course } from './course.entity';
 @Entity()
 export class Instructor {
   @ObjectIdColumn()
@@ -12,4 +20,7 @@ export class Instructor {
     unique: true,
   })
   Email: string;
+  @OneToMany((type) => Course, (course) => course.Instructor)
+  @JoinColumn({ referencedColumnName: 'Course_ID' })
+  Courses: Course[];
 }

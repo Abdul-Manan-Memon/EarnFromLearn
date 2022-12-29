@@ -20,13 +20,7 @@ export class RecruiterRepository {
     NewSignup: SignUpDto,
     ID: ObjectID,
   ): Promise<Recruiter> {
-    const NewRecruiter = new Recruiter();
-    const { First_Name, Last_Name, Username } = NewSignup;
-    NewRecruiter.Recruiter_ID = ID;
-    NewRecruiter.First_Name = First_Name;
-    NewRecruiter.Last_Name = Last_Name;
-    NewRecruiter.Email = Username;
-    await this.Recruiter_Repository.save(NewRecruiter);
-    return NewRecruiter;
+    const NewRecruiter = new Recruiter(NewSignup, ID);
+    return await this.Recruiter_Repository.save(NewRecruiter);
   }
 }

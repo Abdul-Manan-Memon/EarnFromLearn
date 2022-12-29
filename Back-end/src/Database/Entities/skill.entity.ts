@@ -9,7 +9,7 @@ export class Skill {
   Skill_ID: ObjectID;
   @Column({ nullable: false })
   Skill_Name: string;
-  @Column({ nullable: false, type: 'float' })
+  @Column({ nullable: false, type: 'double' })
   Subscription: number;
   @Column((type) => Course)
   Courses: Course[];

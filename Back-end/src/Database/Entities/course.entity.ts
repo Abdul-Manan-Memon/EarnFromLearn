@@ -1,13 +1,16 @@
-import { Type } from 'class-transformer';
 import {
   Column,
+  JoinColumn,
+  ManyToMany,
   ManyToOne,
   ObjectID,
   ObjectIdColumn,
-  OneToMany,
 } from 'typeorm';
 import { Instructor } from './instructor.entity';
 import { JOB } from './job.entity';
+import { Lecture } from './lecture.entity';
+import { Review_Course } from './review-course.entity';
+import { NewCourse } from 'src/Dto/createCourse.dto';
 
 export class Course {
   @ObjectIdColumn({ type: 'uuid' })
@@ -18,15 +21,23 @@ export class Course {
   Course_Description: string;
   @Column({ type: 'numeric' })
   Duration: number;
-  @Column({ type: 'number' })
+  @Column({ type: 'number', default: 0 })
   Rating: number;
-  //@ManyToOne((type) => Instructor, (instructor) => instructor.Instructor_ID)
-  @Column({ nullable: true })
-  @Type(() => Instructor)
+  @Column((type) => Lecture)
+  Lectures: Lecture[];
+  @Column((type) => Review_Course)
+  Review: Review_Course[];
+  @ManyToOne((type) => Instructor, (instructor) => instructor.Instructor_ID, {
+    nullable: true,
+  })
+  @JoinColumn({ referencedColumnName: 'Instructor_ID' })
   Instructor: Instructor;
-  //Instructor;
-  //@OneToMany((type) => JOB, (job) => job.Tagged_Courses)
-  @Column({ nullable: true })
-  @Type(() => JOB)
-  Tagged_In: JOB;
+  @ManyToMany((type) => JOB, (job) => job.Tagged_Courses, { nullable: true })
+  @JoinColumn({ referencedColumnName: 'JOB_ID' })
+  Tagged_In: JOB[];
+
+  constructor(New_Course: NewCourse){
+    this.Course_Title = New_Course.Title;
+    this.Course_Description = New_Course.Description;
+  }
 }

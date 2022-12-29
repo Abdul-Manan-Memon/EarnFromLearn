@@ -11,6 +11,8 @@ import { Roles } from '../Enum/Roles.enum';
 import { InstructorService } from '../instructor/instructor.service';
 import { RecruiterService } from '../recruiter/recruiter.service';
 import { StudentService } from '../student/student.service';
+//import { JwtService } from '@nestjs/jwt';
+//import { Paylaod } from './JWT/jwt-payload';
 
 @Injectable()
 export class AuthService {
@@ -18,7 +20,7 @@ export class AuthService {
     private readonly User_Repo: UserRepository,
     private readonly Student_Service: StudentService,
     private readonly Recruiter_Service: RecruiterService,
-    private readonly Instructor_Service: InstructorService,
+    private readonly Instructor_Service: InstructorService, //    private readonly jwtService: JwtService,
   ) {}
   async SignUp(NewSignup: SignUpDto) {
     const { Username, Password, Role } = NewSignup;
@@ -31,11 +33,11 @@ export class AuthService {
       await this.User_Repo.CreateUser(NewRequest);
       const NewUser = await this.User_Repo.getUserByUsername(Username);
       if (NewUser.Role === Roles.Student) {
-        return this.Student_Service.Signup(NewSignup, NewUser.User_ID);
+        return await this.Student_Service.Signup(NewSignup, NewUser.User_ID);
       } else if (NewUser.Role === Roles.Instructor) {
-        return this.Instructor_Service.Signup(NewSignup, NewUser.User_ID);
+        return await this.Instructor_Service.Signup(NewSignup, NewUser.User_ID);
       } else if (NewUser.Role === Roles.Recruiter) {
-        return this.Recruiter_Service.Signup(NewSignup, NewUser.User_ID);
+        return await this.Recruiter_Service.Signup(NewSignup, NewUser.User_ID);
       }
     } catch (error) {
       if (error) {
@@ -47,15 +49,27 @@ export class AuthService {
     }
   }
   async SignIn(UserLogin: SignInDto) {
-    const User_ = await this.User_Repo.ValidateUser(UserLogin);
-    if (!User_) {
+    const user = await this.User_Repo.ValidateUser(UserLogin);
+    if (!user) {
       throw new UnauthorizedException('Invalid Credentials');
-    } else if (User_.Role === Roles.Student) {
-      return this.Student_Service.getStudentByID(User_.User_ID);
-    } else if (User_.Role === Roles.Instructor) {
-      return this.Instructor_Service.getInstructorByID(User_.User_ID);
-    } else if (User_.Role === Roles.Recruiter) {
-      return this.Recruiter_Service.getRecruiterByID(User_.User_ID);
+    } else {
+      //const { User_ID, Role } = user;
+      //      const Paylaod: Paylaod = { User_ID, Role };
+      //      const access_token = await this.jwtService.sign(Paylaod);
+      if (user.Role === Roles.Student) {
+        const student = await this.Student_Service.getStudentByID(user.User_ID);
+        return { /*access_token*/ student };
+      } else if (user.Role === Roles.Instructor) {
+        const instructor = await this.Instructor_Service.getInstructorByID(
+          user.User_ID,
+        );
+        return { /*access_token*/ instructor };
+      } else if (user.Role === Roles.Recruiter) {
+        const recruiter = await this.Recruiter_Service.getRecruiterByID(
+          user.User_ID,
+        );
+        return { /*access_token*/ recruiter };
+      }
     }
   }
 }

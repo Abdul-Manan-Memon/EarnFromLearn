@@ -15,13 +15,7 @@ export class StudentRepository {
     return await this.Student_Repository.findOne({ where: { Student_ID: id } });
   }
   async CreateStudent(NewSignup: SignUpDto, ID: ObjectID): Promise<Student> {
-    const NewStudent = new Student();
-    const { First_Name, Last_Name, Username } = NewSignup;
-    NewStudent.Student_ID = ID;
-    NewStudent.First_Name = First_Name;
-    NewStudent.Last_Name = Last_Name;
-    NewStudent.Email = Username;
-    await this.Student_Repository.save(NewStudent);
-    return NewStudent;
+    const NewStudent = new Student(NewSignup, ID);
+    return await this.Student_Repository.save(NewStudent);
   }
 }
