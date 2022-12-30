@@ -1,5 +1,13 @@
 import { SignUpDto } from 'src/Dto/SignUp.dto';
-import { Column, Entity, ObjectID, ObjectIdColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ObjectID,
+  ObjectIdColumn,
+  OneToMany,
+} from 'typeorm';
+import { JOB } from './job.entity';
 @Entity()
 export class Recruiter {
   @ObjectIdColumn()
@@ -13,11 +21,16 @@ export class Recruiter {
     unique: true,
   })
   Email: string;
+  @OneToMany((type) => JOB, (job) => job.Posted_By)
+  @JoinColumn({ referencedColumnName: 'JOB_ID' })
+  Jobs: JOB[];
 
-  constructor(NewSignup: SignUpDto, ID: ObjectID) {
-    this.Recruiter_ID = ID;
-    this.First_Name = NewSignup.First_Name;
-    this.Last_Name = NewSignup.Last_Name;
-    this.Email = NewSignup.Username;
+  constructor(NewSignup?: SignUpDto, ID?: ObjectID) {
+    if (NewSignup != undefined && ID != undefined) {
+      this.Recruiter_ID = ID;
+      this.First_Name = NewSignup.First_Name;
+      this.Last_Name = NewSignup.Last_Name;
+      this.Email = NewSignup.Username;
+    }
   }
 }

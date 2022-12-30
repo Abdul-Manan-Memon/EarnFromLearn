@@ -7,6 +7,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import { Course } from './course.entity';
+import { SignUpDto } from 'src/Dto/SignUp.dto';
 @Entity()
 export class Instructor {
   @ObjectIdColumn()
@@ -20,7 +21,18 @@ export class Instructor {
     unique: true,
   })
   Email: string;
-  @OneToMany((type) => Course, (course) => course.Instructor)
+  @OneToMany((type) => Course, (course) => course.Instructor, {
+    nullable: true,
+  })
   @JoinColumn({ referencedColumnName: 'Course_ID' })
   Courses: Course[];
+
+  constructor(NewSignup?: SignUpDto, ID?: ObjectID) {
+    if (NewSignup != undefined && ID != undefined) {
+      this.Instructor_ID = ID;
+      this.First_Name = NewSignup.First_Name;
+      this.Last_Name = NewSignup.Last_Name;
+      this.Email = NewSignup.Username;
+    }
+  }
 }

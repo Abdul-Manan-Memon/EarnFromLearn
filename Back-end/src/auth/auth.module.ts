@@ -21,6 +21,6 @@ import { InstructorModule } from '../instructor/instructor.module';
   ],
   controllers: [AuthController],
   providers: [AuthService, UserRepository],
-  exports: [AuthService, UserRepository],
+  // exports: [AuthService, UserRepository],
 })
 export class AuthModule {}

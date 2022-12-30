@@ -12,20 +12,20 @@ import { Recruiter } from './recruiter.entity';
 import { Student } from './student.entity';
 @Entity()
 export class JOB {
-  @ObjectIdColumn({})
-  Job_ID: ObjectID;
+  @ObjectIdColumn({ type: 'uuid' })
+  JOB_ID: ObjectID;
   @Column({ nullable: false })
   Job_Title: string;
   @Column({ nullable: false, type: 'text' })
   Job_Description: string;
-  @ManyToOne((type) => Recruiter, (recruiter) => recruiter.Recruiter_ID, {
+  @ManyToOne((type) => Recruiter, (recruiter) => recruiter.Jobs, {
     nullable: false,
   })
   @JoinColumn({ referencedColumnName: 'Recruiter_ID' })
   // @Column({ nullable: false })
   // @Type(() => Recruiter)
   Posted_By: Recruiter;
-  @ManyToMany((type) => Student, (student) => student.Student_ID, {
+  @ManyToMany((type) => Student, (student) => student.Jobs, {
     nullable: true,
   })
   @JoinColumn({ referencedColumnName: 'Student_ID' })

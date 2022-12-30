@@ -4,6 +4,7 @@ import { Instructor } from '../Database/Entities/instructor.entity';
 import { InstructorRepository } from '../Database/Repositories/instructor.repository';
 import { InstructorController } from './instructor.controller';
 import { InstructorService } from './instructor.service';
+import { Course } from 'src/Database/Entities/course.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Instructor])],

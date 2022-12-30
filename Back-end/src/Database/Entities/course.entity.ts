@@ -1,5 +1,6 @@
 import {
   Column,
+  Entity,
   JoinColumn,
   ManyToMany,
   ManyToOne,
@@ -12,6 +13,7 @@ import { Lecture } from './lecture.entity';
 import { Review_Course } from './review-course.entity';
 import { NewCourse } from 'src/Dto/createCourse.dto';
 
+@Entity()
 export class Course {
   @ObjectIdColumn({ type: 'uuid' })
   Course_ID: ObjectID;
@@ -27,7 +29,7 @@ export class Course {
   Lectures: Lecture[];
   @Column((type) => Review_Course)
   Review: Review_Course[];
-  @ManyToOne((type) => Instructor, (instructor) => instructor.Instructor_ID, {
+  @ManyToOne((type) => Instructor, (instructor) => instructor.Courses, {
     nullable: true,
   })
   @JoinColumn({ referencedColumnName: 'Instructor_ID' })
@@ -36,8 +38,10 @@ export class Course {
   @JoinColumn({ referencedColumnName: 'JOB_ID' })
   Tagged_In: JOB[];
 
-  constructor(New_Course: NewCourse){
-    this.Course_Title = New_Course.Title;
-    this.Course_Description = New_Course.Description;
+  constructor(New_Course?: NewCourse) {
+    if (New_Course != undefined) {
+      this.Course_Title = New_Course.Title;
+      this.Course_Description = New_Course.Description;
+    }
   }
 }

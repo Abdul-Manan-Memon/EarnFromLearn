@@ -12,9 +12,9 @@ export class UserRepository {
     private User_Repository: MongoRepository<User>,
   ) {}
   private async Hashing(Password: string, salt: string): Promise<string> {
-    return bcrypt.hash(Password, salt);
+    return await bcrypt.hash(Password, salt);
   }
-  async CreateUser(NewRequest: CreateUserDto): Promise<void> {
+  async CreateUser(NewRequest: CreateUserDto) {
     const { Username, Password, Role } = NewRequest;
     const NewUser = new User();
     NewUser.Username = Username;

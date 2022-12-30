@@ -5,6 +5,6 @@ export class Review_Course {
   Review_ID: ObjectID;
   @Column({ nullable: false, type: 'text' })
   Comments: string;
-  @Column({ nullable: false })
-  Reviewer_ID: ObjectID;
+  // @Column({ nullable: false })
+  // Reviewer_ID: ObjectID;
 }
