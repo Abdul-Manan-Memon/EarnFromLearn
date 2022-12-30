@@ -14,7 +14,7 @@ export class InstructorService {
     }
     return Instructor;
   }
-  async Signup(NewSignup: SignUpDto, ID: ObjectID): Promise<Instructor> {
+  async Signup(NewSignup: SignUpDto, ID: ObjectID) {
     const Instructor = await this.Instructor_Repository.CreateInstructor(
       NewSignup,
       ID,
@@ -22,6 +22,5 @@ export class InstructorService {
     if (!Instructor) {
       throw new NotFoundException('Instructor Account Can Not Be Created');
     }
-    return Instructor;
   }
 }

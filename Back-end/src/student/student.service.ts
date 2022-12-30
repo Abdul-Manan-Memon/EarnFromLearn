@@ -14,11 +14,10 @@ export class StudentService {
     }
     return Student;
   }
-  async Signup(NewSignup: SignUpDto, ID: ObjectID): Promise<Student> {
+  async Signup(NewSignup: SignUpDto, ID: ObjectID) {
     const Student = await this.Student_Repository.CreateStudent(NewSignup, ID);
     if (!Student) {
       throw new NotFoundException('Student Account Can Not Be Created');
     }
-    return Student;
   }
 }

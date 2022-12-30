@@ -23,6 +23,7 @@ export class Instructor {
   Email: string;
   @OneToMany((type) => Course, (course) => course.Instructor, {
     nullable: true,
+    eager: true,
   })
   @JoinColumn({ referencedColumnName: 'Course_ID' })
   Courses: Course[];

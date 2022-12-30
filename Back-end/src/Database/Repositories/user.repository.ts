@@ -28,9 +28,10 @@ export class UserRepository {
     const user = await this.User_Repository.findOne({
       where: { Username: Username },
     });
-    if (user && user.ValidatePassword(Password)) {
+    if (user && (await user.ValidatePassword(Password))) {
       return user;
     }
+    return null;
   }
   async getUserByUsername(Username: string): Promise<User> {
     return await this.User_Repository.findOne({

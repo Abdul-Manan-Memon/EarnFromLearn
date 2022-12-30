@@ -14,7 +14,7 @@ export class RecruiterService {
     }
     return Recruiter;
   }
-  async Signup(NewSignup: SignUpDto, ID: ObjectID): Promise<Recruiter> {
+  async Signup(NewSignup: SignUpDto, ID: ObjectID) {
     const Recruiter = await this.Recruiter_Repository.CreateRecruiter(
       NewSignup,
       ID,
@@ -22,6 +22,5 @@ export class RecruiterService {
     if (!Recruiter) {
       throw new NotFoundException('Recruiter Account Can Not Be Created');
     }
-    return Recruiter;
   }
 }

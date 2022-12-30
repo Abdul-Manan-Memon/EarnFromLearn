@@ -31,6 +31,8 @@ export class Course {
   Review: Review_Course[];
   @ManyToOne((type) => Instructor, (instructor) => instructor.Courses, {
     nullable: true,
+    onDelete: 'CASCADE',
+    cascade: true,
   })
   @JoinColumn({ referencedColumnName: 'Instructor_ID' })
   Instructor: Instructor;
