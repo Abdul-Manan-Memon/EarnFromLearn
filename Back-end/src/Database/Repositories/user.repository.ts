@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto } from 'src/Dto/createUser.dto';
 import { SignInDto } from 'src/Dto/SingIn.dto';
-import { MongoRepository } from 'typeorm';
+import { MongoRepository, ObjectID } from 'typeorm';
 import { User } from '../Entities/user.entity';
 import * as bcrypt from 'bcryptjs';
 @Injectable()
@@ -37,5 +37,8 @@ export class UserRepository {
     return await this.User_Repository.findOne({
       where: { Username: Username },
     });
+  }
+  async getUserByID(UID: ObjectID): Promise<User> {
+    return await this.User_Repository.findOne({ where: { User_ID: UID } });
   }
 }

@@ -4,6 +4,7 @@ import {
   InternalServerErrorException,
   UnauthorizedException,
 } from '@nestjs/common';
+import { User } from 'src/Database/Entities/user.entity';
 import { UserRepository } from 'src/Database/Repositories/user.repository';
 import { SignUpDto } from 'src/Dto/SignUp.dto';
 import { SignInDto } from 'src/Dto/SingIn.dto';
@@ -12,6 +13,7 @@ import { Roles } from 'src/Enum/Roles.enum';
 import { InstructorService } from 'src/instructor/instructor.service';
 import { RecruiterService } from 'src/recruiter/recruiter.service';
 import { StudentService } from 'src/student/student.service';
+import { ObjectID } from 'typeorm';
 
 @Injectable()
 export class UserService {
@@ -48,5 +50,19 @@ export class UserService {
   }
   async SignIn(UserLogin: SignInDto) {
     return await this.User_Repo.ValidateUser(UserLogin);
+  }
+  async getUserByUsername(Username: string): Promise<User> {
+    const user = await this.User_Repo.getUserByUsername(Username);
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+    return user;
+  }
+  async getUserByID(UID: ObjectID): Promise<User> {
+    const user = await this.User_Repo.getUserByID(UID);
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+    return user;
   }
 }
