@@ -10,8 +10,4 @@ export class InstructorController {
   getInstructorByID(@Param('id') id: ObjectID): Promise<Instructor> {
     return this.Instructor_Service.getInstructorByID(id);
   }
-  @Post()
-  addCourse(){
-
-  }
 }

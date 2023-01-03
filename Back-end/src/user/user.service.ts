@@ -1,5 +1,6 @@
 import {
   ConflictException,
+  Inject,
   Injectable,
   InternalServerErrorException,
   UnauthorizedException,
@@ -19,8 +20,11 @@ import { ObjectID } from 'typeorm';
 export class UserService {
   constructor(
     private readonly User_Repo: UserRepository,
+    @Inject(StudentService)
     private readonly Student_Service: StudentService,
+    @Inject(RecruiterService)
     private readonly Recruiter_Service: RecruiterService,
+    @Inject(InstructorService)
     private readonly Instructor_Service: InstructorService,
   ) {}
   async SignUp(NewSignup: SignUpDto) {

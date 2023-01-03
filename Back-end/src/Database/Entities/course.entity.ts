@@ -1,4 +1,5 @@
 import {
+  BaseEntity,
   Column,
   Entity,
   JoinColumn,
@@ -30,20 +31,22 @@ export class Course {
   @Column((type) => Review_Course)
   Review: Review_Course[];
   @ManyToOne((type) => Instructor, (instructor) => instructor.Courses, {
-    nullable: true,
-    onDelete: 'CASCADE',
-    cascade: true,
+    nullable: false,
   })
-  @JoinColumn({ referencedColumnName: 'Instructor_ID' })
+  @JoinColumn({
+    /*referencedColumnName: 'Instructor_ID'*/
+  })
   Instructor: Instructor;
+  @Column({ nullable: false })
+  Instructor_ID: string;
   @ManyToMany((type) => JOB, (job) => job.Tagged_Courses, { nullable: true })
   @JoinColumn({ referencedColumnName: 'JOB_ID' })
   Tagged_In: JOB[];
-
-  constructor(New_Course?: NewCourse) {
+  constructor(New_Course?: NewCourse, Uploader?: Instructor) {
     if (New_Course != undefined) {
       this.Course_Title = New_Course.Title;
       this.Course_Description = New_Course.Description;
+      this.Instructor = Uploader;
     }
   }
 }

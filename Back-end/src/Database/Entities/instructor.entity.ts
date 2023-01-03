@@ -25,7 +25,7 @@ export class Instructor {
     nullable: true,
     eager: true,
   })
-  @JoinColumn({ referencedColumnName: 'Course_ID' })
+  //@JoinColumn({ referencedColumnName: 'Course_ID' })
   Courses: Course[];
 
   constructor(NewSignup?: SignUpDto, ID?: ObjectID) {
