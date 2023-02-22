@@ -1,8 +1,7 @@
 import { JwtModuleOptions } from '@nestjs/jwt';
-
 export const Token: JwtModuleOptions = {
-  secret: 'EarnFromLearn',
+  secret: 'Hello',
   signOptions: {
-    expiresIn: 3600,
+    expiresIn: '1d',
   },
 };

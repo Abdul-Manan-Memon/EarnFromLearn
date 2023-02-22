@@ -4,13 +4,18 @@ import { StudentModule } from './student/student.module';
 import { InstructorModule } from './instructor/instructor.module';
 import { RecruiterModule } from './recruiter/recruiter.module';
 import { AuthModule } from './auth/auth.module';
-import { Cloud_Connection } from './Database/Config/TypeORM.cloud.config';
+import { Cloud_Connection } from './Database/DB_Config/TypeORM.cloud.config';
 import { CourseModule } from './course/course.module';
 import { JobModule } from './job/job.module';
 import { SkillModule } from './skill/skill.module';
 import { UserModule } from './user/user.module';
+import { MailModule } from './mail/mail.module';
+import { ConfigModule } from '@nestjs/config';
+import { MailerModule } from '@nestjs-modules/mailer';
 @Module({
   imports: [
+    //ConfigModule.forRoot({isGlobal: true, envFilePath: ['.env']}),
+    MailerModule.forRootAsync(),
     TypeOrmModule.forRoot(Cloud_Connection),
     AuthModule,
     StudentModule,
@@ -20,6 +25,7 @@ import { UserModule } from './user/user.module';
     JobModule,
     SkillModule,
     UserModule,
+    MailModule,
   ],
 })
 export class AppModule {}
