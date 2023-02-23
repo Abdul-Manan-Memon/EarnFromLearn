@@ -1,9 +1,0 @@
-server:
-  port: 3000
-
-db:
-  type: 'mongodb'
-  database: 'EarnFromLearn'
-
-jwt:
-  expiresIn: 3600

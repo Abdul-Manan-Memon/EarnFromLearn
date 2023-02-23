@@ -1,7 +1,0 @@
-db:
-  username: 'Abdul-Manan'
-  password: 'I_abdulmanan22'
-  cluster: 'earnfromlearn'
-
-jwt:
-  secret: 'fyp_project#19'

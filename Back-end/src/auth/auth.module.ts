@@ -8,8 +8,12 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './JWT/jwt-strategy';
 @Module({
   imports: [
-    PassportModule.register({ defaultStrategy: 'jwt' }),
-    JwtModule.register(Token),
+    PassportModule.registerAsync({
+      useFactory: async () => ({
+        defaultStrategy: 'jwt',
+      }),
+    }),
+    JwtModule.registerAsync(Token),
     UserModule,
   ],
   controllers: [AuthController],
