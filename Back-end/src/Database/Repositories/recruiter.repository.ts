@@ -13,7 +13,7 @@ export class RecruiterRepository {
   async getRecruiterByID(id: ObjectID): Promise<Recruiter> {
     //console.log('Before findone In Repo');
     return await this.Recruiter_Repository.findOne({
-      where: { Recruiter_ID: id },
+      where: { _ID: id },
     });
   }
   async CreateRecruiter(

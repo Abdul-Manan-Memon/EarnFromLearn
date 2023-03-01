@@ -21,7 +21,7 @@ export class UserRepository {
     NewUser.Salt = await bcrypt.genSalt();
     NewUser.Password = await this.Hashing(Password, NewUser.Salt);
     NewUser.Role = Role;
-    await this.User_Repository.save(NewUser);
+    await this.User_Repository.save(NewUser); //Not Returned "USER OBJECT HAS PASSWORD"
   }
   async ValidateUser(UserLogin: SignInDto): Promise<User> {
     const { Username, Password } = UserLogin;

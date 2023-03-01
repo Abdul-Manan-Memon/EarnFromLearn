@@ -13,7 +13,7 @@ export class InstructorRepository {
   async getInstructorByID(id: ObjectID): Promise<Instructor> {
     //console.log('Before findone In Repo');
     return await this.Instructor_Repository.findOne({
-      where: { Instructor_ID: id },
+      where: { _ID: id },
     });
   }
   async CreateInstructor(

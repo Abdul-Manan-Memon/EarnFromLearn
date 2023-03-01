@@ -12,7 +12,7 @@ export class StudentRepository {
   ) {}
   async getStudentByID(id: ObjectID): Promise<Student> {
     //console.log('Before findone In Repo');
-    return await this.Student_Repository.findOne({ where: { Student_ID: id } });
+    return await this.Student_Repository.findOne({ where: { _ID: id } });
   }
   async CreateStudent(NewSignup: SignUpDto, ID: ObjectID): Promise<Student> {
     const NewStudent = new Student(NewSignup, ID);

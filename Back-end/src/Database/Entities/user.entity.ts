@@ -1,6 +1,7 @@
 import { Column, Entity, ObjectID, ObjectIdColumn } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
 import { Roles } from 'src/Enum/Roles.enum';
+
 @Entity()
 export class User {
   @ObjectIdColumn()
@@ -21,6 +22,13 @@ export class User {
     enum: Roles,
   })
   Role: Roles;
+  @Column({
+    type: 'bool',
+    default: false,
+    nullable: false,
+  })
+  verified: boolean;
+
   async ValidatePassword(Password: string): Promise<boolean> {
     const Hash = await bcrypt.hash(Password, this.Salt);
     return Hash === this.Password;

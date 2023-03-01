@@ -15,6 +15,7 @@ import { InstructorService } from 'src/instructor/instructor.service';
 import { RecruiterService } from 'src/recruiter/recruiter.service';
 import { StudentService } from 'src/student/student.service';
 import { ObjectID } from 'typeorm';
+import { user } from 'src/Database/Entities/abstract_class/user.class';
 
 @Injectable()
 export class UserService {
@@ -27,7 +28,7 @@ export class UserService {
     @Inject(InstructorService)
     private readonly Instructor_Service: InstructorService,
   ) {}
-  async SignUp(NewSignup: SignUpDto) {
+  async SignUp(NewSignup: SignUpDto): Promise<user> {
     const { Username, Password, Role } = NewSignup;
     const NewRequest: CreateUserDto = {
       Username,
@@ -38,11 +39,11 @@ export class UserService {
       await this.User_Repo.CreateUser(NewRequest);
       const NewUser = await this.User_Repo.getUserByUsername(Username);
       if (NewUser.Role === Roles.Student) {
-        await this.Student_Service.Signup(NewSignup, NewUser.User_ID);
+        return this.Student_Service.Signup(NewSignup, NewUser.User_ID);
       } else if (NewUser.Role === Roles.Instructor) {
-        await this.Instructor_Service.Signup(NewSignup, NewUser.User_ID);
+        return this.Instructor_Service.Signup(NewSignup, NewUser.User_ID);
       } else if (NewUser.Role === Roles.Recruiter) {
-        await this.Recruiter_Service.Signup(NewSignup, NewUser.User_ID);
+        return this.Recruiter_Service.Signup(NewSignup, NewUser.User_ID);
       }
     } catch (error) {
       if (error.code === 11000) {

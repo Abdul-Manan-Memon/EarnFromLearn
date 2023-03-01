@@ -6,17 +6,20 @@ export const Mail_Connection: MailerAsyncOptions = {
   inject: [ConfigService],
   useFactory: async (config: ConfigService) => ({
     transport: {
+      service: 'gmail',
       host: config.get('MAIL_HOST_SERVER'),
+      port: 465,
+      secure: true,
       auth: {
         user: config.get('MAIL_USER'),
         pass: config.get('MAIL_PASS'),
       },
     },
     defaults: {
-      from: `"no-reply@" <${config.get('FROM_ADDRESS')}>`,
+      from: config.get('FROM_ADDRESS'),
     },
     template: {
-      dir: __dirname + './templates',
+      dir: 'src/mail/templates',
       adapter: new HandlebarsAdapter(),
       options: {
         strict: true,

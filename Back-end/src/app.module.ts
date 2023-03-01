@@ -11,15 +11,12 @@ import { SkillModule } from './skill/skill.module';
 import { UserModule } from './user/user.module';
 import { MailModule } from './mail/mail.module';
 import { ConfigModule } from '@nestjs/config';
-import { MailerModule } from '@nestjs-modules/mailer';
-import { Mail_Connection } from './mail/mail_Config/mail.configuration';
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: ['.env'],
     }),
-    MailerModule.forRootAsync(Mail_Connection),
     TypeOrmModule.forRootAsync(Cloud_Connection),
     AuthModule,
     StudentModule,

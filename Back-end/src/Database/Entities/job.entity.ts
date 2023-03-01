@@ -21,14 +21,14 @@ export class JOB {
   @ManyToOne((type) => Recruiter, (recruiter) => recruiter.Jobs, {
     nullable: false,
   })
-  @JoinColumn({ referencedColumnName: 'Recruiter_ID' })
+  @JoinColumn({ referencedColumnName: '_ID' })
   // @Column({ nullable: false })
   // @Type(() => Recruiter)
   Posted_By: Recruiter;
   @ManyToMany((type) => Student, (student) => student.Jobs, {
     nullable: true,
   })
-  @JoinColumn({ referencedColumnName: 'Student_ID' })
+  @JoinColumn({ referencedColumnName: '_ID' })
   // @Column({ nullable: true })
   // @Type(() => Student)
   Applicants: Student[];

@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { SignUpDto } from 'src/Dto/SignUp.dto';
 import { SignInDto } from 'src/Dto/SingIn.dto';
 import { UserService } from 'src/user/user.service';
@@ -6,15 +6,22 @@ import { JwtService } from '@nestjs/jwt';
 import { Payload } from './JWT/jwt-payload';
 import { ObjectID } from 'typeorm';
 import { User } from 'src/Database/Entities/user.entity';
+import { randomBytes } from 'crypto';
+import { MailService } from 'src/mail/mail.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly User_Service: UserService,
     private jwtService: JwtService,
+    @Inject(MailService)
+    private readonly mail_Service: MailService,
   ) {}
   async SignUp(NewSignup: SignUpDto) {
-    return await this.User_Service.SignUp(NewSignup);
+    const _user = await this.User_Service.SignUp(NewSignup);
+    if (_user) {
+      console.log(await this.mail_Service.SendVarificationEmail(_user));
+    }
   }
   async SignIn(UserLogin: SignInDto): Promise<{ access_token: string }> {
     try {
@@ -32,5 +39,9 @@ export class AuthService {
   }
   async getUserByID(UID: ObjectID): Promise<User> {
     return await this.User_Service.getUserByID(UID);
+  }
+  async generateVerificationToken(userId: string): Promise<string> {
+    const token = randomBytes(20).toString('hex');
+    return `${userId}:${token}`;
   }
 }

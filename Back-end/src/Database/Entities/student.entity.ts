@@ -7,27 +7,18 @@ import {
   ObjectIdColumn,
   OneToMany,
 } from 'typeorm';
+import { user } from './abstract_class/user.class';
 import { JOB } from './job.entity';
 @Entity()
-export class Student {
-  @ObjectIdColumn()
-  Student_ID: ObjectID;
-  @Column({ nullable: false })
-  First_Name: string;
-  @Column()
-  Last_Name: string;
-  @Column({
-    nullable: false,
-    unique: true,
-  })
-  Email: string;
+export class Student extends user {
   @OneToMany((type) => JOB, (job) => job.Applicants)
   @JoinColumn({ referencedColumnName: 'JOB_ID' })
   Jobs: JOB[];
 
   constructor(NewSignup?: SignUpDto, ID?: ObjectID) {
+    super();
     if (NewSignup != undefined && ID != undefined) {
-      this.Student_ID = ID;
+      this._ID = ID;
       this.First_Name = NewSignup.First_Name;
       this.Last_Name = NewSignup.Last_Name;
       this.Email = NewSignup.Username;
