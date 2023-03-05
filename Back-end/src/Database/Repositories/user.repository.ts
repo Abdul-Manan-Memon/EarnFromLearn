@@ -41,4 +41,10 @@ export class UserRepository {
   async getUserByID(UID: ObjectID): Promise<User> {
     return await this.User_Repository.findOne({ where: { User_ID: UID } });
   }
+  async UpdateUsertoVarified(email: string) {
+    return await this.User_Repository.findOneAndUpdate(
+      { Username: email },
+      { varified: true },
+    );
+  }
 }

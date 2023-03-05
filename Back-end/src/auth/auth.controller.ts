@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { SignUpDto } from '../Dto/SignUp.dto';
 import { SignInDto } from '../Dto/SingIn.dto';
 import { AuthService } from './auth.service';
@@ -14,6 +14,11 @@ export class AuthController {
   SignIn(@Body() UserLogin: SignInDto): Promise<{ access_token: string }> {
     return this.auth_Service.SignIn(UserLogin);
   }
+  @Get('/confirmation/:token')
+  async ConfirmAccount(@Param('token') token: string) {
+    return await this.auth_Service.validateAccountEmail(token);
+  }
+
   // @Get('/:id')
   // getUser(@Param('id') name: ObjectID): Promise<User> {
   //   return this.auth_Service.getUserByID(name);

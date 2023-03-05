@@ -8,10 +8,12 @@ import { ObjectID } from 'typeorm';
 import { User } from 'src/Database/Entities/user.entity';
 import { randomBytes } from 'crypto';
 import { MailService } from 'src/mail/mail.service';
+import { emit } from 'process';
 
 @Injectable()
 export class AuthService {
   constructor(
+    @Inject(UserService)
     private readonly User_Service: UserService,
     private jwtService: JwtService,
     @Inject(MailService)
@@ -40,8 +42,8 @@ export class AuthService {
   async getUserByID(UID: ObjectID): Promise<User> {
     return await this.User_Service.getUserByID(UID);
   }
-  async generateVerificationToken(userId: string): Promise<string> {
-    const token = randomBytes(20).toString('hex');
-    return `${userId}:${token}`;
+  async validateAccountEmail(token: string) {
+    const email = this.jwtService.decode(token);
+    return await this.User_Service.UpdateUserVarified(email);
   }
 }

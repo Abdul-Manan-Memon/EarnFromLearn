@@ -70,4 +70,7 @@ export class UserService {
     }
     return user;
   }
+  async UpdateUserVarified(email: any) {
+    return await this.User_Repo.UpdateUsertoVarified(email);
+  }
 }
