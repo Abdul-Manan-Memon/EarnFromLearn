@@ -42,9 +42,11 @@ export class UserRepository {
     return await this.User_Repository.findOne({ where: { User_ID: UID } });
   }
   async UpdateUsertoVarified(email: string) {
-    return await this.User_Repository.findOneAndUpdate(
-      { Username: email },
-      { varified: true },
+    return console.log(
+      await this.User_Repository.findOneAndUpdate(
+        { Username: email },
+        { varified: true },
+      ),
     );
   }
 }

@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  InternalServerErrorException,
+  Param,
+  Post,
+} from '@nestjs/common';
+import { response } from 'express';
 import { SignUpDto } from '../Dto/SignUp.dto';
 import { SignInDto } from '../Dto/SingIn.dto';
 import { AuthService } from './auth.service';
@@ -16,7 +24,12 @@ export class AuthController {
   }
   @Get('/confirmation/:token')
   async ConfirmAccount(@Param('token') token: string) {
-    return await this.auth_Service.validateAccountEmail(token);
+    try {
+      await this.auth_Service.validateAccountEmail(token);
+      response.send('Account Sucessfully Verified');
+    } catch (e) {
+      throw new InternalServerErrorException();
+    }
   }
 
   // @Get('/:id')

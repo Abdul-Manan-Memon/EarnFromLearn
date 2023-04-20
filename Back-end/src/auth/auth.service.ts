@@ -6,9 +6,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Payload } from './JWT/jwt-payload';
 import { ObjectID } from 'typeorm';
 import { User } from 'src/Database/Entities/user.entity';
-import { randomBytes } from 'crypto';
 import { MailService } from 'src/mail/mail.service';
-import { emit } from 'process';
 
 @Injectable()
 export class AuthService {
@@ -44,6 +42,6 @@ export class AuthService {
   }
   async validateAccountEmail(token: string) {
     const email = this.jwtService.decode(token);
-    return await this.User_Service.UpdateUserVarified(email);
+    return await this.User_Service.UpdateUserVarified(email.toString());
   }
 }
