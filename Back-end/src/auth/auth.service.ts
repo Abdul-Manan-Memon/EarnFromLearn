@@ -20,7 +20,7 @@ export class AuthService {
   async SignUp(NewSignup: SignUpDto) {
     const _user = await this.User_Service.SignUp(NewSignup);
     if (_user) {
-      console.log(await this.mail_Service.SendVarificationEmail(_user));
+      await this.mail_Service.SendVarificationEmail(_user);
     }
   }
   async SignIn(UserLogin: SignInDto): Promise<{ access_token: string }> {
@@ -28,7 +28,7 @@ export class AuthService {
       const user = await this.User_Service.SignIn(UserLogin);
       const { User_ID, Username, Role } = user;
       const Paylaod: Payload = { User_ID, Role, Username };
-      const access_token = await this.jwtService.sign(Paylaod);
+      const access_token = await this.jwtService.signAsync(Paylaod);
       return { access_token };
     } catch (error) {
       throw new UnauthorizedException('Invalid Credentials');
@@ -42,6 +42,10 @@ export class AuthService {
   }
   async validateAccountEmail(token: string) {
     const email = this.jwtService.decode(token);
-    return await this.User_Service.UpdateUserVarified(email.toString());
+    const updated = await this.User_Service.UpdateUserVarified(email['Email']);
+    if (!updated) {
+      throw new UnauthorizedException('Invalid Token');
+    }
+    return 'Account Sucessfully Verified';
   }
 }

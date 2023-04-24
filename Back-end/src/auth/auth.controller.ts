@@ -1,15 +1,8 @@
-import {
-  Body,
-  Controller,
-  Get,
-  InternalServerErrorException,
-  Param,
-  Post,
-} from '@nestjs/common';
-import { response } from 'express';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { SignUpDto } from '../Dto/SignUp.dto';
 import { SignInDto } from '../Dto/SingIn.dto';
 import { AuthService } from './auth.service';
+import { IsVerified } from 'src/Guards/isVerified.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -19,19 +12,14 @@ export class AuthController {
     return this.auth_Service.SignUp(NewSignup);
   }
   @Post('/signin')
+  @UseGuards(IsVerified)
   SignIn(@Body() UserLogin: SignInDto): Promise<{ access_token: string }> {
     return this.auth_Service.SignIn(UserLogin);
   }
   @Get('/confirmation/:token')
   async ConfirmAccount(@Param('token') token: string) {
-    try {
-      await this.auth_Service.validateAccountEmail(token);
-      response.send('Account Sucessfully Verified');
-    } catch (e) {
-      throw new InternalServerErrorException();
-    }
+    return await this.auth_Service.validateAccountEmail(token);
   }
-
   // @Get('/:id')
   // getUser(@Param('id') name: ObjectID): Promise<User> {
   //   return this.auth_Service.getUserByID(name);

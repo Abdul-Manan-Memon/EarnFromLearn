@@ -21,6 +21,7 @@ export class UserRepository {
     NewUser.Salt = await bcrypt.genSalt();
     NewUser.Password = await this.Hashing(Password, NewUser.Salt);
     NewUser.Role = Role;
+    NewUser.verified = false;
     await this.User_Repository.save(NewUser); //Not Returned "USER OBJECT HAS PASSWORD"
   }
   async ValidateUser(UserLogin: SignInDto): Promise<User> {
@@ -42,11 +43,9 @@ export class UserRepository {
     return await this.User_Repository.findOne({ where: { User_ID: UID } });
   }
   async UpdateUsertoVarified(email: string) {
-    return console.log(
-      await this.User_Repository.findOneAndUpdate(
-        { Username: email },
-        { varified: true },
-      ),
+    return await this.User_Repository.findOneAndUpdate(
+      { Username: email },
+      { $set: { verified: true } },
     );
   }
 }

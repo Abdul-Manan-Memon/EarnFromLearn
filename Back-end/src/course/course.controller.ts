@@ -1,12 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Post,
-  Query,
-  Req,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
 import { CourseService } from './course.service';
 import { NewCourse } from 'src/Dto/createCourse.dto';
 import { Course } from 'src/Database/Entities/course.entity';
