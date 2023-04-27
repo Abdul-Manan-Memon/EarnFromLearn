@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { SignUpDto } from '../Dto/SignUp.dto';
 import { ObjectID } from 'typeorm';
 import { Student } from '../Database/Entities/student.entity';
@@ -10,14 +14,19 @@ export class StudentService {
   async getStudentByID(id: ObjectID): Promise<Student> {
     const Student = await this.Student_Repository.getStudentByID(id);
     if (!Student) {
-      throw new NotFoundException('Student ID Not Found');
+      throw new NotFoundException('Invalid Credentials');
     }
     return Student;
   }
-  async Signup(NewSignup: SignUpDto, ID: ObjectID): Promise<Student> {
-    const Student = await this.Student_Repository.CreateStudent(NewSignup, ID);
+  async Signup(NewSignup?: SignUpDto, User_ID?: ObjectID): Promise<Student> {
+    const Student = await this.Student_Repository.CreateStudent(
+      NewSignup,
+      User_ID,
+    );
     if (!Student) {
-      throw new NotFoundException('Student Account Can Not Be Created');
+      throw new InternalServerErrorException(
+        'Student Account Can Not Be Created',
+      );
     }
     return Student;
   }

@@ -13,6 +13,7 @@ export class AuthService {
   constructor(
     @Inject(UserService)
     private readonly User_Service: UserService,
+    @Inject(JwtService)
     private jwtService: JwtService,
     @Inject(MailService)
     private readonly mail_Service: MailService,
@@ -22,6 +23,7 @@ export class AuthService {
     if (_user) {
       await this.mail_Service.SendVarificationEmail(_user);
     }
+    return '';
   }
   async SignIn(UserLogin: SignInDto): Promise<{ access_token: string }> {
     try {

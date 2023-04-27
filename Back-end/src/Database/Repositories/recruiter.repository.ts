@@ -11,16 +11,14 @@ export class RecruiterRepository {
     private Recruiter_Repository: MongoRepository<Recruiter>,
   ) {}
   async getRecruiterByID(id: ObjectID): Promise<Recruiter> {
-    //console.log('Before findone In Repo');
     return await this.Recruiter_Repository.findOne({
       where: { _ID: id },
     });
   }
   async CreateRecruiter(
-    NewSignup: SignUpDto,
-    ID: ObjectID,
+    NewSignup?: SignUpDto,
+    User_ID?: ObjectID,
   ): Promise<Recruiter> {
-    const NewRecruiter = new Recruiter(NewSignup, ID);
-    return await this.Recruiter_Repository.save(NewRecruiter);
+    return await new Recruiter(NewSignup, User_ID).save();
   }
 }

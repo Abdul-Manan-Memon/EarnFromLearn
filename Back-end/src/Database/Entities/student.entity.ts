@@ -1,27 +1,22 @@
 import { SignUpDto } from 'src/Dto/SignUp.dto';
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ObjectID,
-  ObjectIdColumn,
-  OneToMany,
-} from 'typeorm';
+import { Column, Entity, ObjectID, OneToMany } from 'typeorm';
 import { user } from './abstract_class/user.class';
 import { JOB } from './job.entity';
+import { Course } from './course.entity';
+import { Profile } from './Profile.entity';
 @Entity()
 export class Student extends user {
-  @OneToMany((type) => JOB, (job) => job.Applicants)
-  @JoinColumn({ referencedColumnName: 'JOB_ID' })
-  Jobs: JOB[];
+  @Column(() => Profile)
+  Profile: Profile;
+  @OneToMany(() => Course, (course) => course.Course_ID, {
+    nullable: true,
+    eager: true,
+  })
+  Courses: ObjectID[];
+  @OneToMany(() => JOB, (job) => job.JOB_ID, { nullable: true, eager: true })
+  Jobs: ObjectID[];
 
-  constructor(NewSignup?: SignUpDto, ID?: ObjectID) {
-    super();
-    if (NewSignup != undefined && ID != undefined) {
-      this._ID = ID;
-      this.First_Name = NewSignup.First_Name;
-      this.Last_Name = NewSignup.Last_Name;
-      this.Email = NewSignup.Username;
-    }
+  constructor(NewSignup?: SignUpDto, User_ID?: ObjectID) {
+    super(NewSignup, User_ID);
   }
 }

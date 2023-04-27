@@ -36,20 +36,20 @@ export class UserService {
       Role,
     };
     try {
-      await this.User_Repo.CreateUser(NewRequest);
-      const NewUser = await this.User_Repo.getUserByUsername(Username);
-      if (NewUser.Role === Roles.Student) {
-        return this.Student_Service.Signup(NewSignup, NewUser.User_ID);
-      } else if (NewUser.Role === Roles.Instructor) {
-        return this.Instructor_Service.Signup(NewSignup, NewUser.User_ID);
-      } else if (NewUser.Role === Roles.Recruiter) {
-        return this.Recruiter_Service.Signup(NewSignup, NewUser.User_ID);
+      const NewUser = await this.User_Repo.CreateUser(NewRequest);
+      const { Role, User_ID } = NewUser;
+      if (Role === Roles.Student) {
+        return await this.Student_Service.Signup(NewSignup, User_ID);
+      } else if (Role === Roles.Instructor) {
+        return await this.Instructor_Service.Signup(NewSignup, User_ID);
+      } else if (Role === Roles.Recruiter) {
+        return await this.Recruiter_Service.Signup(NewSignup, User_ID);
       }
     } catch (error) {
       if (error.code === 11000) {
         throw new ConflictException(`Username Alrady Exits`);
       } else {
-        throw new InternalServerErrorException();
+        throw new InternalServerErrorException(error);
       }
     }
   }
@@ -59,14 +59,14 @@ export class UserService {
   async getUserByUsername(Username: string): Promise<User> {
     const user = await this.User_Repo.getUserByUsername(Username);
     if (!user) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('Invalid Credentials');
     }
     return user;
   }
   async getUserByID(UID: ObjectID): Promise<User> {
     const user = await this.User_Repo.getUserByID(UID);
     if (!user) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('Invalid Credentials');
     }
     return user;
   }

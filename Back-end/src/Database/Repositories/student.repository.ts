@@ -10,12 +10,13 @@ export class StudentRepository {
     @InjectRepository(Student)
     private Student_Repository: MongoRepository<Student>,
   ) {}
-  async getStudentByID(id: ObjectID): Promise<Student> {
-    //console.log('Before findone In Repo');
+  async getStudentByID(id?: ObjectID): Promise<Student> {
     return await this.Student_Repository.findOne({ where: { _ID: id } });
   }
-  async CreateStudent(NewSignup: SignUpDto, ID: ObjectID): Promise<Student> {
-    const NewStudent = new Student(NewSignup, ID);
-    return await this.Student_Repository.save(NewStudent);
+  async CreateStudent(
+    NewSignup?: SignUpDto,
+    User_ID?: ObjectID,
+  ): Promise<Student> {
+    return await new Student(NewSignup, User_ID).save();
   }
 }

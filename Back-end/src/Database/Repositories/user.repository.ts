@@ -11,18 +11,18 @@ export class UserRepository {
     @InjectRepository(User)
     private User_Repository: MongoRepository<User>,
   ) {}
-  private async Hashing(Password: string, salt: string): Promise<string> {
+  private async Generate_Hashed_Password(
+    Password: string,
+    salt: string,
+  ): Promise<string> {
     return await bcrypt.hash(Password, salt);
   }
-  async CreateUser(NewRequest: CreateUserDto) {
+  async CreateUser(NewRequest: CreateUserDto): Promise<User> {
     const { Username, Password, Role } = NewRequest;
-    const NewUser = new User();
-    NewUser.Username = Username;
-    NewUser.Salt = await bcrypt.genSalt();
-    NewUser.Password = await this.Hashing(Password, NewUser.Salt);
-    NewUser.Role = Role;
-    NewUser.verified = false;
-    await this.User_Repository.save(NewUser); //Not Returned "USER OBJECT HAS PASSWORD"
+    const Salt = await bcrypt.genSalt();
+    const Hashed_Password = await this.Generate_Hashed_Password(Password, Salt);
+    const NewUser = new User(Username, Hashed_Password, Salt, Role);
+    return await NewUser.save();
   }
   async ValidateUser(UserLogin: SignInDto): Promise<User> {
     const { Username, Password } = UserLogin;

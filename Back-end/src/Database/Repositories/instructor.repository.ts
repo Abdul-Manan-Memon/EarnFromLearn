@@ -11,16 +11,14 @@ export class InstructorRepository {
     private Instructor_Repository: MongoRepository<Instructor>,
   ) {}
   async getInstructorByID(id: ObjectID): Promise<Instructor> {
-    //console.log('Before findone In Repo');
     return await this.Instructor_Repository.findOne({
       where: { _ID: id },
     });
   }
   async CreateInstructor(
-    NewSignup: SignUpDto,
-    ID: ObjectID,
+    NewSignup?: SignUpDto,
+    User_ID?: ObjectID,
   ): Promise<Instructor> {
-    const NewInstructor = new Instructor(NewSignup, ID);
-    return await this.Instructor_Repository.save(NewInstructor);
+    return await new Instructor(NewSignup, User_ID).save();
   }
 }
