@@ -24,7 +24,6 @@ export class CourseRepository {
     return;
   }
   async getCourseByID(id: ObjectID): Promise<Course> {
-    //console.log('Before findone In Repo');
     return await this.Course_Repository.findOne({
       where: { Course_ID: id },
     });

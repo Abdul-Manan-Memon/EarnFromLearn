@@ -1,42 +1,33 @@
 import {
+  BaseEntity,
   Column,
   Entity,
-  JoinColumn,
   ManyToMany,
   ManyToOne,
   ObjectID,
   ObjectIdColumn,
+  OneToMany,
 } from 'typeorm';
-import { Course } from './course.entity';
 import { Recruiter } from './recruiter.entity';
 import { Student } from './student.entity';
+import { Course } from './course.entity';
 @Entity()
-export class JOB {
+export class JOB extends BaseEntity {
   @ObjectIdColumn({ type: 'uuid' })
   JOB_ID: ObjectID;
   @Column({ nullable: false })
   Job_Title: string;
   @Column({ nullable: false, type: 'text' })
   Job_Description: string;
-  @ManyToOne((type) => Recruiter, (recruiter) => recruiter.Jobs, {
+  @ManyToOne(() => Recruiter, (recruiter) => recruiter._ID, {
     nullable: false,
   })
-  @JoinColumn({ referencedColumnName: '_ID' })
-  // @Column({ nullable: false })
-  // @Type(() => Recruiter)
-  Posted_By: Recruiter;
-  @ManyToMany((type) => Student, (student) => student.Jobs, {
-    nullable: true,
-  })
-  @JoinColumn({ referencedColumnName: '_ID' })
-  // @Column({ nullable: true })
-  // @Type(() => Student)
-  Applicants: Student[];
-  @ManyToMany((type) => Course, (course) => course.Tagged_In, {
-    nullable: true,
-  })
-  @JoinColumn({ referencedColumnName: 'Course_ID' })
-  // @Column({ nullable: false })
-  // @Type(() => Course)
-  Tagged_Courses: Course[];
+  Posted_By: ObjectID;
+  @ManyToMany(() => Student, (student) => student._ID, { nullable: true })
+  Applicants: ObjectID[];
+  @OneToMany(() => Course, (course) => course.Course_ID, { nullable: true })
+  Tagged_Courses: ObjectID[];
+  constructor() {
+    super();
+  }
 }

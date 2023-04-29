@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Inject,
+  Param,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { SignUpDto } from '../Dto/SignUp.dto';
 import { SignInDto } from '../Dto/SingIn.dto';
 import { AuthService } from './auth.service';
@@ -6,7 +14,10 @@ import { IsVerified } from 'src/Guards/isVerified.guard';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private auth_Service: AuthService) {}
+  constructor(
+    @Inject(AuthService)
+    private auth_Service: AuthService,
+  ) {}
   @Post('/signup')
   Signup(@Body() NewSignup: SignUpDto) {
     return this.auth_Service.SignUp(NewSignup);

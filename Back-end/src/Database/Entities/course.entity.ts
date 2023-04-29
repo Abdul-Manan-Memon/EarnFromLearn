@@ -15,7 +15,7 @@ import { Review_Course } from './review-course.entity';
 import { NewCourse } from 'src/Dto/createCourse.dto';
 
 @Entity()
-export class Course {
+export class Course extends BaseEntity {
   @ObjectIdColumn({ type: 'uuid' })
   Course_ID: ObjectID;
   @Column({ nullable: false })
@@ -43,6 +43,7 @@ export class Course {
   @JoinColumn({ referencedColumnName: 'JOB_ID' })
   Tagged_In: JOB[];
   constructor(New_Course?: NewCourse, Uploader?: Instructor) {
+    super();
     if (New_Course != undefined) {
       this.Course_Title = New_Course.Title;
       this.Course_Description = New_Course.Description;
