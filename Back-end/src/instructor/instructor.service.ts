@@ -8,7 +8,16 @@ import { user } from 'src/Database/Entities/abstract_class/user.class';
 @Injectable()
 export class InstructorService {
   constructor(private readonly Instructor_Repository: InstructorRepository) {}
-  async getInstructorByID(id: ObjectID): Promise<Instructor> {
+  async getgetInstructorByUserID(user_id: ObjectID): Promise<Instructor> {
+    const Instructor = await this.Instructor_Repository.getInstructorByUserID(
+      user_id,
+    );
+    if (!Instructor) {
+      throw new NotFoundException('Instructor ID Not Found');
+    }
+    return Instructor;
+  }
+  async getInstructorBy_ID(id: ObjectID): Promise<Instructor> {
     const Instructor = await this.Instructor_Repository.getInstructorByID(id);
     if (!Instructor) {
       throw new NotFoundException('Instructor ID Not Found');

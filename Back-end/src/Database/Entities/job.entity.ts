@@ -11,6 +11,7 @@ import {
 import { Recruiter } from './recruiter.entity';
 import { Student } from './student.entity';
 import { Course } from './course.entity';
+import { CreateJobDto } from 'src/Dto/createJob.dto';
 @Entity()
 export class JOB extends BaseEntity {
   @ObjectIdColumn({ type: 'uuid' })
@@ -27,7 +28,12 @@ export class JOB extends BaseEntity {
   Applicants: ObjectID[];
   @OneToMany(() => Course, (course) => course.Course_ID, { nullable: true })
   Tagged_Courses: ObjectID[];
-  constructor() {
+  constructor(NewJob?: CreateJobDto) {
     super();
+    if (NewJob != undefined) {
+      const { Title, Description } = NewJob;
+      this.Job_Title = Title;
+      this.Job_Description = Description;
+    }
   }
 }

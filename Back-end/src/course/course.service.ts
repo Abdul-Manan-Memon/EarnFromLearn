@@ -4,6 +4,7 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
+import { user } from 'src/Database/Entities/abstract_class/user.class';
 import { Course } from 'src/Database/Entities/course.entity';
 import { User } from 'src/Database/Entities/user.entity';
 import { CourseRepository } from 'src/Database/Repositories/course.repository';
@@ -32,13 +33,8 @@ export class CourseService {
     return course;
   }
   async addCourse(New_Course: NewCourse, Uploader: User): Promise<Course> {
-    const instructor = await this.Instrctor_Sevice.getInstructorByID(
-      Uploader.User_ID,
-    );
-    const course = await this.Course_Repository.addCourse(
-      New_Course,
-      instructor,
-    );
+    const { User_ID } = Uploader;
+    const course = await this.Course_Repository.addCourse(New_Course, User_ID);
     if (!course) {
       throw new UnauthorizedException();
     }

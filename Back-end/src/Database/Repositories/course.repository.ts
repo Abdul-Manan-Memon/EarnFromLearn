@@ -30,11 +30,8 @@ export class CourseRepository {
   }
   async addCourse(
     Course_details: NewCourse,
-    Uploader: Instructor,
+    Uploader: ObjectID,
   ): Promise<Course> {
-    const New_Course = new Course(Course_details, Uploader);
-    await this.Course_Repository.save(New_Course);
-    delete New_Course.Instructor;
-    return New_Course;
+    return new Course(Course_details, Uploader).save();
   }
 }

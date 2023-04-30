@@ -14,10 +14,9 @@ import { AuthGuard } from '@nestjs/passport';
 import { FilterCoursesDto } from 'src/Dto/get-courses-filter.dto';
 import { GetUser } from 'src/Decorators/get-user-decorator';
 import { User } from 'src/Database/Entities/user.entity';
-import { IsInstructor } from 'src/Guards/isInstructor.guard';
 
 @Controller('course')
-@UseGuards(AuthGuard())
+@UseGuards(AuthGuard('jwt'))
 export class CourseController {
   constructor(
     @Inject(CourseService)
@@ -29,7 +28,7 @@ export class CourseController {
   }
 
   @Post('/addCourse')
-  @UseGuards(IsInstructor)
+  //  @UseGuards(IsInstructor)
   async addCourse(
     @Body() New_Course: NewCourse,
     @GetUser() Uploader: User,

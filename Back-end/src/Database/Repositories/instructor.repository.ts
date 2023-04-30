@@ -10,6 +10,11 @@ export class InstructorRepository {
     @InjectRepository(Instructor)
     private Instructor_Repository: MongoRepository<Instructor>,
   ) {}
+  async getInstructorByUserID(user_id: ObjectID) {
+    return await this.Instructor_Repository.findOne({
+      where: { User_ID: user_id },
+    });
+  }
   async getInstructorByID(id: ObjectID): Promise<Instructor> {
     return await this.Instructor_Repository.findOne({
       where: { _ID: id },

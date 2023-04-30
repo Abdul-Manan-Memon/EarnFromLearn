@@ -2,8 +2,7 @@ import {
   BaseEntity,
   Column,
   Entity,
-  JoinColumn,
-  ManyToMany,
+  IsNull,
   ManyToOne,
   ObjectID,
   ObjectIdColumn,
@@ -24,30 +23,30 @@ export class Course extends BaseEntity {
   Course_Description: string;
   @Column({ type: 'numeric' })
   Duration: number;
-  @Column({ type: 'number', default: 0 })
+  @Column({ type: 'number', default: null })
   Rating: number;
-  @Column((type) => Lecture)
+  @Column(() => Lecture)
   Lectures: Lecture[];
-  @Column((type) => Review_Course)
+  @Column(() => Review_Course)
   Review: Review_Course[];
-  @ManyToOne((type) => Instructor, (instructor) => instructor.Courses, {
+  @ManyToOne(() => Instructor, (instructor) => instructor._ID, {
     nullable: false,
+    eager: true,
   })
-  @JoinColumn({
-    /*referencedColumnName: 'Instructor_ID'*/
-  })
-  Instructor: Instructor;
-  @Column({ nullable: false })
-  Instructor_ID: string;
-  @ManyToMany((type) => JOB, (job) => job.Tagged_Courses, { nullable: true })
-  @JoinColumn({ referencedColumnName: 'JOB_ID' })
-  Tagged_In: JOB[];
-  constructor(New_Course?: NewCourse, Uploader?: Instructor) {
+  Instructor: ObjectID;
+  @ManyToOne(() => JOB, (job) => job.JOB_ID)
+  Tagged_In: ObjectID[];
+
+  constructor(New_Course?: NewCourse, Uploader?: ObjectID) {
     super();
-    if (New_Course != undefined) {
+    if (New_Course != undefined && Uploader != undefined) {
       this.Course_Title = New_Course.Title;
       this.Course_Description = New_Course.Description;
       this.Instructor = Uploader;
+      this.Duration;
+      this.Lectures;
+      this.Review;
+      this.Tagged_In;
     }
   }
 }

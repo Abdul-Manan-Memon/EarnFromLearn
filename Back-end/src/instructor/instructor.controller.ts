@@ -11,6 +11,6 @@ export class InstructorController {
   ) {}
   @Get('/:id')
   getInstructorByID(@Param('id') id: ObjectID): Promise<Instructor> {
-    return this.Instructor_Service.getInstructorByID(id);
+    return this.Instructor_Service.getInstructorBy_ID(id);
   }
 }
