@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { SignUpDto } from 'src/Dto/SignUp.dto';
 import { MongoRepository, ObjectID } from 'typeorm';
 import { Instructor } from '../Entities/instructor.entity';
+import { Course } from '../Entities/course.entity';
 
 @Injectable()
 export class InstructorRepository {
@@ -10,6 +11,20 @@ export class InstructorRepository {
     @InjectRepository(Instructor)
     private Instructor_Repository: MongoRepository<Instructor>,
   ) {}
+  async addCourse(User_ID: ObjectID, Course_ID: string) {
+    console.log(
+      await this.Instructor_Repository.updateOne(
+        {
+          User_ID: User_ID,
+        },
+        {
+          $push: {
+            Courses: Course_ID,
+          },
+        },
+      ),
+    );
+  }
   async getInstructorByUserID(user_id: ObjectID) {
     return await this.Instructor_Repository.findOne({
       where: { User_ID: user_id },

@@ -4,6 +4,7 @@ import { ObjectID } from 'typeorm';
 import { Instructor } from '../Database/Entities/instructor.entity';
 import { InstructorRepository } from '../Database/Repositories/instructor.repository';
 import { user } from 'src/Database/Entities/abstract_class/user.class';
+import { Course } from 'src/Database/Entities/course.entity';
 
 @Injectable()
 export class InstructorService {
@@ -33,5 +34,12 @@ export class InstructorService {
       throw new NotFoundException('Instructor Account Can Not Be Created');
     }
     return Instructor;
+  }
+  async addCourse(User_ID: ObjectID, Course_ID: ObjectID) {
+    try {
+      await this.Instructor_Repository.addCourse(User_ID, Course_ID.toString());
+    } catch (error) {
+      throw new NotFoundException(error);
+    }
   }
 }

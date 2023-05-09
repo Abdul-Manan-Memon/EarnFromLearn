@@ -1,0 +1,154 @@
+{
+	"info": {
+		"_postman_id": "37c708d8-9454-4ee6-a17f-98c7868e7728",
+		"name": "EarnFromLearn",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24800839",
+		"_collection_link": "https://blue-satellite-675174.postman.co/workspace/FYP~49ca617f-f943-4b6e-8eaf-7b51617a13e2/collection/24800839-37c708d8-9454-4ee6-a17f-98c7868e7728?action=share&creator=24800839&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Signup_Users",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "First_Name",
+							"value": "Abdul Manan",
+							"type": "text"
+						},
+						{
+							"key": "Last_Name",
+							"value": "Memon",
+							"type": "text"
+						},
+						{
+							"key": "Username",
+							"value": "mananmemon99@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "Password",
+							"value": "12345678",
+							"type": "text"
+						},
+						{
+							"key": "Role",
+							"value": "Instructor",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/auth/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Signin_Users",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "Username",
+							"value": "mananmemon99@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "Password",
+							"value": "12345678",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/auth/signin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add_Course",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyX0lEIjoiNjQ0ZTQ3ZTBmZmEwMTQyNmE3MWVjNTA5IiwiUm9sZSI6Ikluc3RydWN0b3IiLCJVc2VybmFtZSI6Im1hbmFubWVtb245OUBnbWFpbC5jb20iLCJpYXQiOjE2ODI4OTY4NTMsImV4cCI6MTY4Mjk4MzI1M30.mnfvl4RongqhlT428Q2f5W3I7Dh3uZWUqxbzILPDELs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "Title",
+							"value": "Web",
+							"type": "text"
+						},
+						{
+							"key": "Description",
+							"value": "HTML CSS",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/course/addCourse",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"course",
+						"addCourse"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "Access_Takon",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+		}
+	]
+}

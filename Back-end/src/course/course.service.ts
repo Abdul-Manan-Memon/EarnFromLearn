@@ -1,10 +1,10 @@
 import {
   Inject,
   Injectable,
+  InternalServerErrorException,
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { user } from 'src/Database/Entities/abstract_class/user.class';
 import { Course } from 'src/Database/Entities/course.entity';
 import { User } from 'src/Database/Entities/user.entity';
 import { CourseRepository } from 'src/Database/Repositories/course.repository';
@@ -34,9 +34,14 @@ export class CourseService {
   }
   async addCourse(New_Course: NewCourse, Uploader: User): Promise<Course> {
     const { User_ID } = Uploader;
-    const course = await this.Course_Repository.addCourse(New_Course, User_ID);
-    if (!course) {
-      throw new UnauthorizedException();
+    console.log(User_ID);
+    let course = null;
+    try {
+      course = await this.Course_Repository.addCourse(New_Course, User_ID);
+      const { Course_ID } = course;
+      await this.Instrctor_Sevice.addCourse(User_ID, Course_ID);
+    } catch (err) {
+      throw new InternalServerErrorException(err);
     }
     return course;
   }

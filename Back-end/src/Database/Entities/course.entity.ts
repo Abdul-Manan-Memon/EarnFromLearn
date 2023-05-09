@@ -2,7 +2,6 @@ import {
   BaseEntity,
   Column,
   Entity,
-  IsNull,
   ManyToOne,
   ObjectID,
   ObjectIdColumn,
@@ -31,7 +30,7 @@ export class Course extends BaseEntity {
   Review: Review_Course[];
   @ManyToOne(() => Instructor, (instructor) => instructor._ID, {
     nullable: false,
-    eager: true,
+    eager: false,
   })
   Instructor: ObjectID;
   @ManyToOne(() => JOB, (job) => job.JOB_ID)
@@ -43,10 +42,6 @@ export class Course extends BaseEntity {
       this.Course_Title = New_Course.Title;
       this.Course_Description = New_Course.Description;
       this.Instructor = Uploader;
-      this.Duration;
-      this.Lectures;
-      this.Review;
-      this.Tagged_In;
     }
   }
 }
