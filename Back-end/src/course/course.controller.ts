@@ -34,7 +34,6 @@ export class CourseController {
     @Body() New_Course: NewCourse,
     @GetUser() Uploader: User,
   ): Promise<Course> {
-    console.log(Uploader);
     return await this.Course_Service.addCourse(New_Course, Uploader);
   }
 }

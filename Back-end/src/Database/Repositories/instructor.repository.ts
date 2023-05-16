@@ -12,22 +12,21 @@ export class InstructorRepository {
     private Instructor_Repository: MongoRepository<Instructor>,
   ) {}
   async addCourse(User_ID: ObjectID, Course_ID: string) {
-    console.log(
-      await this.Instructor_Repository.updateOne(
-        {
-          User_ID: User_ID,
+    await this.Instructor_Repository.updateOne(
+      {
+        User_ID: User_ID,
+      },
+      {
+        $push: {
+          Courses: Course_ID,
         },
-        {
-          $push: {
-            Courses: Course_ID,
-          },
-        },
-      ),
+      },
     );
   }
   async getInstructorByUserID(user_id: ObjectID) {
     return await this.Instructor_Repository.findOne({
       where: { User_ID: user_id },
+      relations: [],
     });
   }
   async getInstructorByID(id: ObjectID): Promise<Instructor> {

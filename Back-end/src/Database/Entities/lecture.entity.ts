@@ -5,8 +5,8 @@ export class Lecture {
   Lecture_ID: ObjectID;
   @Column({ nullable: false })
   Lecture_Title: string;
-  @Column({ type: 'numeric' })
-  Duration: number;
+  @Column({})
+  Description: string;
   @Column({})
   Video: string;
 }

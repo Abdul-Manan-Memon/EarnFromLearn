@@ -1,4 +1,4 @@
-import { Controller, Get, Inject, Param } from '@nestjs/common';
+import { Controller, Get, Inject, Param, Put } from '@nestjs/common';
 import { ObjectID } from 'typeorm';
 import { Student } from '../Database/Entities/student.entity';
 import { StudentService } from './student.service';
@@ -13,4 +13,6 @@ export class StudentController {
   getStudentByID(@Param('id') id: ObjectID): Promise<Student> {
     return this.Student_Service.getStudentByID(id);
   }
+  // @Put('/enrollCourse')
+  // async enrollToCourse();
 }

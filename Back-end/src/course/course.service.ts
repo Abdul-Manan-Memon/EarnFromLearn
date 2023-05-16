@@ -34,7 +34,6 @@ export class CourseService {
   }
   async addCourse(New_Course: NewCourse, Uploader: User): Promise<Course> {
     const { User_ID } = Uploader;
-    console.log(User_ID);
     let course = null;
     try {
       course = await this.Course_Repository.addCourse(New_Course, User_ID);
