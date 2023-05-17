@@ -8,6 +8,9 @@ import { Course } from 'src/Database/Entities/course.entity';
 @Injectable()
 export class InstructorService {
   constructor(private readonly Instructor_Repository: InstructorRepository) {}
+  async getAllInstructors(): Promise<Instructor[]> {
+    return await this.Instructor_Repository.getAllInstructors();
+  }
   async getInstructorByUsername(Username: string): Promise<Instructor> {
     const Instructor = await this.Instructor_Repository.getInstructorByUsername(
       Username,

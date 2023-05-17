@@ -9,7 +9,10 @@ export class InstructorController {
     @Inject(InstructorService)
     private Instructor_Service: InstructorService,
   ) {}
-
+  @Get()
+  async getAllInstructors(): Promise<Instructor[]> {
+    return await this.Instructor_Service.getAllInstructors();
+  }
   @Get('/:username')
   getInstructorByUsername(
     @Param('username') Username: string,

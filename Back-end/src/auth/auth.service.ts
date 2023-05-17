@@ -36,6 +36,11 @@ export class AuthService {
       throw new UnauthorizedException('Invalid Credentials');
     }
   }
+  async SendMeetingMail(To: string, Sender: User): Promise<any> {
+    const { Username } = Sender;
+    const Mail_List: string[] = [To, Username];
+    return await this.mail_Service.sendMeetingMail(Mail_List);
+  }
   async getUserByUsername(Username: string): Promise<User> {
     return await this.User_Service.getUserByUsername(Username);
   }

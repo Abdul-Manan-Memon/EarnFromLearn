@@ -1,8 +1,8 @@
 import {
+  Inject,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
-  Redirect,
 } from '@nestjs/common';
 import { SignUpDto } from '../Dto/SignUp.dto';
 import { ObjectID } from 'typeorm';
@@ -16,8 +16,12 @@ import { Exception } from 'handlebars';
 export class StudentService {
   constructor(
     private readonly Student_Repository: StudentRepository,
+    @Inject(CourseService)
     private readonly Course_Service: CourseService,
   ) {}
+  async getAllStudents(): Promise<Student[]> {
+    return await this.Student_Repository.getAllStudents();
+  }
   async getStudentByID(id: ObjectID): Promise<Student> {
     const Student = await this.Student_Repository.getStudentByID(id);
     if (!Student) {

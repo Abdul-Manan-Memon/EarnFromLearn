@@ -4,6 +4,7 @@ import { SignUpDto } from 'src/Dto/SignUp.dto';
 import { MongoRepository, ObjectID } from 'typeorm';
 import { Instructor } from '../Entities/instructor.entity';
 import { Course } from '../Entities/course.entity';
+import { Exception } from 'handlebars';
 
 @Injectable()
 export class InstructorRepository {
@@ -23,10 +24,16 @@ export class InstructorRepository {
       },
     );
   }
+  async getAllInstructors(): Promise<Instructor[]> {
+    try {
+      return this.Instructor_Repository.find();
+    } catch (err) {
+      throw new Exception(err);
+    }
+  }
   async getInstructorByUsername(Username: string) {
     return await this.Instructor_Repository.findOne({
       where: { Email: Username },
-      relations: ['Courses'],
     });
   }
   async getInstructorByUserID(user_id: ObjectID): Promise<Instructor> {

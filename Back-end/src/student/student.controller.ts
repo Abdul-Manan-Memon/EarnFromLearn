@@ -22,6 +22,10 @@ export class StudentController {
     @Inject(StudentService)
     private Student_Service: StudentService,
   ) {}
+  @Get()
+  async getAllStudents(): Promise<Student[]> {
+    return await this.Student_Service.getAllStudents();
+  }
   @Get('/:id')
   async getStudentByID(@Param('id') id: ObjectID): Promise<Student> {
     return await this.Student_Service.getStudentByID(id);
