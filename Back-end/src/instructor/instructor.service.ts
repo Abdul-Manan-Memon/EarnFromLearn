@@ -3,13 +3,21 @@ import { SignUpDto } from '../Dto/SignUp.dto';
 import { ObjectID } from 'typeorm';
 import { Instructor } from '../Database/Entities/instructor.entity';
 import { InstructorRepository } from '../Database/Repositories/instructor.repository';
-import { user } from 'src/Database/Entities/abstract_class/user.class';
 import { Course } from 'src/Database/Entities/course.entity';
 
 @Injectable()
 export class InstructorService {
   constructor(private readonly Instructor_Repository: InstructorRepository) {}
-  async getgetInstructorByUserID(user_id: ObjectID): Promise<Instructor> {
+  async getInstructorByUsername(Username: string): Promise<Instructor> {
+    const Instructor = await this.Instructor_Repository.getInstructorByUsername(
+      Username,
+    );
+    if (!Instructor) {
+      throw new NotFoundException('Instructor ID Not Found');
+    }
+    return Instructor;
+  }
+  async getInstructorByUserID(user_id: ObjectID): Promise<Instructor> {
     const Instructor = await this.Instructor_Repository.getInstructorByUserID(
       user_id,
     );
@@ -35,9 +43,9 @@ export class InstructorService {
     }
     return Instructor;
   }
-  async addCourse(User_ID: ObjectID, Course_ID: ObjectID) {
+  async addCourse(User_ID: ObjectID, Course: Course) {
     try {
-      await this.Instructor_Repository.addCourse(User_ID, Course_ID.toString());
+      await this.Instructor_Repository.addCourse(User_ID, Course);
     } catch (error) {
       throw new NotFoundException(error);
     }

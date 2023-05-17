@@ -40,10 +40,7 @@ export class Course extends BaseEntity {
   Lectures: Lecture[];
   @Column(() => Review_Course)
   Review: Review_Course[];
-  @ManyToOne(() => Instructor, (instructor) => instructor._ID, {
-    nullable: false,
-    eager: false,
-  })
+  @Column({ type: 'alphanum' })
   Instructor: ObjectID;
   @ManyToOne(() => JOB, (job) => job.JOB_ID)
   Tagged_In: ObjectID[];

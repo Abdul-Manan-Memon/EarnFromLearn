@@ -3,7 +3,6 @@ import {
   Injectable,
   InternalServerErrorException,
   NotFoundException,
-  UnauthorizedException,
 } from '@nestjs/common';
 import { Course } from 'src/Database/Entities/course.entity';
 import { User } from 'src/Database/Entities/user.entity';
@@ -25,6 +24,13 @@ export class CourseService {
     if (!Courses) throw new NotFoundException('No any Course Found');
     return Courses;
   }
+  async getCourseByTitle(Title: string): Promise<Course> {
+    const course = await this.Course_Repository.getCourseByTitle(Title);
+    if (!course) {
+      throw new NotFoundException('Course Not Found');
+    }
+    return course;
+  }
   async getCourseByID(id: ObjectID): Promise<Course> {
     const course = await this.Course_Repository.getCourseByID(id);
     if (!course) {
@@ -37,8 +43,7 @@ export class CourseService {
     let course = null;
     try {
       course = await this.Course_Repository.addCourse(New_Course, User_ID);
-      const { Course_ID } = course;
-      await this.Instrctor_Sevice.addCourse(User_ID, Course_ID);
+      await this.Instrctor_Sevice.addCourse(User_ID, course);
     } catch (err) {
       throw new InternalServerErrorException(err);
     }

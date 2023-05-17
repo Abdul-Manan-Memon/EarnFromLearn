@@ -8,11 +8,8 @@ import { Profile } from './Profile.entity';
 export class Student extends user {
   @Column(() => Profile)
   Profile: Profile;
-  @ManyToMany(() => Course, (course) => course.Course_ID, {
-    nullable: true,
-    eager: true,
-  })
-  Courses: ObjectID[];
+  @Column(() => Course)
+  Courses: Course[];
   @ManyToMany(() => JOB, (job) => job.JOB_ID, { nullable: true, eager: true })
   Jobs: ObjectID[];
 

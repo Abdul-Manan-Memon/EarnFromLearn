@@ -11,22 +11,27 @@ export class InstructorRepository {
     @InjectRepository(Instructor)
     private Instructor_Repository: MongoRepository<Instructor>,
   ) {}
-  async addCourse(User_ID: ObjectID, Course_ID: string) {
+  async addCourse(User_ID: ObjectID, Course: Course) {
     await this.Instructor_Repository.updateOne(
       {
         User_ID: User_ID,
       },
       {
         $push: {
-          Courses: Course_ID,
+          Courses: Course,
         },
       },
     );
   }
-  async getInstructorByUserID(user_id: ObjectID) {
+  async getInstructorByUsername(Username: string) {
+    return await this.Instructor_Repository.findOne({
+      where: { Email: Username },
+      relations: ['Courses'],
+    });
+  }
+  async getInstructorByUserID(user_id: ObjectID): Promise<Instructor> {
     return await this.Instructor_Repository.findOne({
       where: { User_ID: user_id },
-      relations: [],
     });
   }
   async getInstructorByID(id: ObjectID): Promise<Instructor> {

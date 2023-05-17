@@ -23,6 +23,11 @@ export class CourseRepository {
     //   );
     return;
   }
+  async getCourseByTitle(Title: string): Promise<Course> {
+    return await this.Course_Repository.findOne({
+      where: { Course_Title: Title },
+    });
+  }
   async getCourseByID(id: ObjectID): Promise<Course> {
     return await this.Course_Repository.findOne({
       where: { Course_ID: id },
